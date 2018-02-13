@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "flipbyte", "flipbyte\flipbyte.vcxproj", "{99FA9753-31ED-4B3F-B5BD-474709F5904F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{99FA9753-31ED-4B3F-B5BD-474709F5904F}.Debug|x64.ActiveCfg = Debug|x64
+		{99FA9753-31ED-4B3F-B5BD-474709F5904F}.Debug|x64.Build.0 = Debug|x64
+		{99FA9753-31ED-4B3F-B5BD-474709F5904F}.Debug|x86.ActiveCfg = Debug|Win32
+		{99FA9753-31ED-4B3F-B5BD-474709F5904F}.Debug|x86.Build.0 = Debug|Win32
+		{99FA9753-31ED-4B3F-B5BD-474709F5904F}.Release|x64.ActiveCfg = Release|x64
+		{99FA9753-31ED-4B3F-B5BD-474709F5904F}.Release|x64.Build.0 = Release|x64
+		{99FA9753-31ED-4B3F-B5BD-474709F5904F}.Release|x86.ActiveCfg = Release|Win32
+		{99FA9753-31ED-4B3F-B5BD-474709F5904F}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D6820BEE-B66B-4610-A6CE-667047B2C6BF}
+	EndGlobalSection
+EndGlobal
