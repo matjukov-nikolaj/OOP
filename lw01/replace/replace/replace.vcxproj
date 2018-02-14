@@ -98,8 +98,12 @@
     <PreBuildEvent>
       <Message>
       </Message>
-      <Command>test.bat "$(TargetPath)"</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>test.bat "$(TargetPath)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -120,7 +124,8 @@
     <PreBuildEvent>
       <Message>
       </Message>
-      <Command>test.bat "$(TargetPath)"</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -143,8 +148,12 @@
     <PreBuildEvent>
       <Message>
       </Message>
-      <Command>test.bat "$(TargetPath)"</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>test.bat "$(TargetPath)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -169,7 +178,8 @@
     <PreBuildEvent>
       <Message>
       </Message>
-      <Command>test.bat "$(TargetPath)"</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
