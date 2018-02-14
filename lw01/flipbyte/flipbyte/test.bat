@@ -23,25 +23,25 @@ IF NOT ERRORLEVEL 1 GOTO err
 REM Рабочий тест 1
 %PROGRAM% 6 out.txt
 IF ERRORLEVEL 1 GOTO err
-FC /B out.txt test1.txt
+FC out.txt test1.txt
 IF ERRORLEVEL 1 GOTO err
 
 REM Рабочий тест 2
 %PROGRAM% 12 out.txt
 IF ERRORLEVEL 1 GOTO err
-FC /B out.txt test2.txt
+FC out.txt test2.txt
 IF ERRORLEVEL 1 GOTO err
 
 REM Рабочий тест 3
 %PROGRAM% 231 out.txt
 IF ERRORLEVEL 1 GOTO err
-FC /B out.txt test3.txt
+FC out.txt test3.txt
 IF ERRORLEVEL 1 GOTO err
 
 REM Рабочий тест 4
 %PROGRAM% 249 out.txt
 IF ERRORLEVEL 1 GOTO err
-FC /B out.txt test4.txt
+FC out.txt test4.txt
 IF ERRORLEVEL 1 GOTO err
 
 
