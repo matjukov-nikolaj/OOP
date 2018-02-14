@@ -26,13 +26,8 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="replace.cpp">
+    <ClCompile Include="invert.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="test.bat">
-      <Filter>Файлы ресурсов</Filter>
-    </None>
   </ItemGroup>
 </Project>
