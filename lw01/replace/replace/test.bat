@@ -49,7 +49,6 @@ IF ERRORLEVEL 1 GOTO err
 FC /B out.txt outtest5.txt
 IF ERRORLEVEL 1 GOTO err
 
-
 ECHO Program testing succeeded :-)
 
 EXIT
