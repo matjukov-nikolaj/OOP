@@ -21,33 +21,40 @@ REM подстроки в файле in.txt "will  help  the  designer"
 REM на подстроку "Первый рабочий тест"
 %PROGRAM% in.txt out.txt "will  help  the  designer" "Первый рабочий тест"
 IF ERRORLEVEL 1 GOTO err
-FC /B out.txt outtest1.txt
+FC out.txt outtest1.txt
 IF ERRORLEVEL 1 GOTO err
 
 REM Рабочий тест 2! замена подстроки "ма" на "мама"
 %PROGRAM% in.txt out.txt "ма" "мама"
 IF ERRORLEVEL 1 GOTO err
-FC /B out.txt outtest2.txt
+FC out.txt outtest2.txt
 IF ERRORLEVEL 1 GOTO err
 
 REM Рабочий тест 3! замена подстроки "1231234" внутри "12312312345"
 %PROGRAM% in.txt out.txt "1231234" "Работает замена данной подстроки"
 IF ERRORLEVEL 1 GOTO err
-FC /B out.txt outtest3.txt
+FC out.txt outtest3.txt
 IF ERRORLEVEL 1 GOTO err
 
 
 REM Рабочий тест 4! Искомая строка равна пустой строке, замена не происходит, файлы копируются
 %PROGRAM% in.txt out.txt "" "Copy"
 IF ERRORLEVEL 1 GOTO err
-FC /B out.txt outtest4.txt
+FC out.txt outtest4.txt
 IF ERRORLEVEL 1 GOTO err
 
 REM Рабочий тест 5! Замена в конце большого файла
 %PROGRAM% war.txt out.txt "1) различия в форме собственных имен: Nicolas" "The END"
 IF ERRORLEVEL 1 GOTO err
-FC /B out.txt outtest5.txt
+FC out.txt outtest5.txt
 IF ERRORLEVEL 1 GOTO err
+
+REM Рабочий тест 5! Замена множественных вхождений в строке
+%PROGRAM% in1.txt out.txt a bb
+IF ERRORLEVEL 1 GOTO err
+FC out.txt outtest6.txt
+IF ERRORLEVEL 1 GOTO err
+
 
 ECHO Program testing succeeded :-)
 
