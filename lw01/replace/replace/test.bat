@@ -1,58 +1,49 @@
 set PROGRAM="%~1"
 
-REM запуск программы без параметров
+REM start of the program without parameters
 %PROGRAM%
 IF NOT ERRORLEVEL 1 GOTO err
 
-REM запуск программы с одним параметром
+REM start of the program with one parameter
 %PROGRAM% OneParameters
 IF NOT ERRORLEVEL 1 GOTO err
 
-REM запуск программы с пустой строкой в качестве одного из параметров
+REM start of the program with an empty line as one of parameters
 %PROGRAM% ""
 IF NOT ERRORLEVEL 1 GOTO err
 
-REM запуск программы с шестью параметрами
-%PROGRAM% in.txt out.txt "lol" "kek" "chebyrek"
+REM start of the program with six parameters
+%PROGRAM% in.txt out.txt "1231234" "ReplaceNumber" "123"
 IF NOT ERRORLEVEL 1 GOTO err
 
-REM Рабочий тест 1! запуск программы c корректными параметрами и замена
-REM подстроки в файле in.txt "will  help  the  designer"
-REM на подстроку "Первый рабочий тест"
-%PROGRAM% in.txt out.txt "will  help  the  designer" "Первый рабочий тест"
+REM replace 1231234 -> ReplaceNumber
+%PROGRAM% in.txt out.txt "1231234" "ReplaceNumber"
 IF ERRORLEVEL 1 GOTO err
 FC out.txt outtest1.txt
 IF ERRORLEVEL 1 GOTO err
 
-REM Рабочий тест 2! замена подстроки "ма" на "мама"
-%PROGRAM% in.txt out.txt "ма" "мама"
+REM replace ma->mama
+%PROGRAM% in.txt out.txt "ma" "mama"
 IF ERRORLEVEL 1 GOTO err
 FC out.txt outtest2.txt
 IF ERRORLEVEL 1 GOTO err
 
-REM Рабочий тест 3! замена подстроки "1231234" внутри "12312312345"
-%PROGRAM% in.txt out.txt "1231234" "Работает замена данной подстроки"
+REM replace brother -> sister
+%PROGRAM% in.txt out.txt "brother" "sister"
 IF ERRORLEVEL 1 GOTO err
 FC out.txt outtest3.txt
 IF ERRORLEVEL 1 GOTO err
 
-
-REM Рабочий тест 4! Искомая строка равна пустой строке, замена не происходит, файлы копируются
-%PROGRAM% in.txt out.txt "" "Copy"
+REM replace a->bb
+%PROGRAM% in.txt out.txt "a" "bb"
 IF ERRORLEVEL 1 GOTO err
 FC out.txt outtest4.txt
 IF ERRORLEVEL 1 GOTO err
 
-REM Рабочий тест 5! Замена в конце большого файла
-%PROGRAM% war.txt out.txt "1) различия в форме собственных имен: Nicolas" "The END"
+REM replace ""->a
+%PROGRAM% in.txt out.txt "" "a"
 IF ERRORLEVEL 1 GOTO err
 FC out.txt outtest5.txt
-IF ERRORLEVEL 1 GOTO err
-
-REM Рабочий тест 5! Замена множественных вхождений в строке
-%PROGRAM% in1.txt out.txt a bb
-IF ERRORLEVEL 1 GOTO err
-FC out.txt outtest6.txt
 IF ERRORLEVEL 1 GOTO err
 
 
