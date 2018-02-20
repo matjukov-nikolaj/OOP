@@ -4,6 +4,10 @@ REM start of the program without parameters
 %PROGRAM%
 IF NOT ERRORLEVEL 1 GOTO err
 
+REM in4.txt det == 0
+%PROGRAM% in4.txt
+IF  NOT ERRORLEVEL 1 GOTO err
+
 REM in1.txt -> out.txt
 %PROGRAM% in1.txt > out.txt
 IF ERRORLEVEL 1 GOTO err
@@ -21,10 +25,6 @@ REM in3.txt -> out.txt
 IF ERRORLEVEL 1 GOTO err
 FC out.txt out3.txt
 IF ERRORLEVEL 1 GOTO err
-
-REM in4.txt det == 0
-%PROGRAM% in4.txt
-IF  NOT ERRORLEVEL 1 GOTO err
 
 ECHO Program testing succeeded :-)
 
