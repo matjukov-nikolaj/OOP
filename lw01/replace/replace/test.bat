@@ -23,27 +23,27 @@ FC out.txt outtest1.txt
 IF ERRORLEVEL 1 GOTO err
 
 REM replace ma->mama
-%PROGRAM% in.txt out.txt "ma" "mama"
+%PROGRAM% in.txt "%TEMP%\out.txt" "ma" "mama"
 IF ERRORLEVEL 1 GOTO err
-FC out.txt outtest2.txt
+FC "%TEMP%\out.txt" outtest2.txt
 IF ERRORLEVEL 1 GOTO err
 
 REM replace brother -> sister
-%PROGRAM% in.txt out.txt "brother" "sister"
+%PROGRAM% in.txt "%TEMP%\out.txt" "brother" "sister"
 IF ERRORLEVEL 1 GOTO err
-FC out.txt outtest3.txt
+FC "%TEMP%\out.txt" outtest3.txt
 IF ERRORLEVEL 1 GOTO err
 
 REM replace a->bb
-%PROGRAM% in.txt out.txt "a" "bb"
+%PROGRAM% in.txt "%TEMP%\out.txt" "a" "bb"
 IF ERRORLEVEL 1 GOTO err
-FC out.txt outtest4.txt
+FC "%TEMP%\out.txt" outtest4.txt
 IF ERRORLEVEL 1 GOTO err
 
 REM replace ""->a
-%PROGRAM% in.txt out.txt "" "a"
+%PROGRAM% in.txt "%TEMP%\out.txt" "" "a"
 IF ERRORLEVEL 1 GOTO err
-FC out.txt outtest5.txt
+FC "%TEMP%\out.txt" outtest5.txt
 IF ERRORLEVEL 1 GOTO err
 
 
