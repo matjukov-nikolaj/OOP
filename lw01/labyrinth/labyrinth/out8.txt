@@ -1,0 +1,1 @@
+The size of the labyrinth exceeds the maximum size of the field!
