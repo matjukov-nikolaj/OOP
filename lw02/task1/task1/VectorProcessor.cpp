@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "VectorProcessor.h"
+#include "stdafx.h"
 #include <iostream>
 #include <algorithm>
 #include <fstream>
