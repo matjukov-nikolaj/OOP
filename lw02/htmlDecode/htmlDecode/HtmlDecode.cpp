@@ -9,7 +9,7 @@ const std::unordered_map<std::string, std::string> HTML_ENTITIES = {
 	{ "&amp;", "&" }
 };
 
-std::string DecodeHtmlEntityInString(const std::string &str, const std::string &searchStr, const std::string &replacementStr)
+std::string DecodeHtmlEntityInString(const std::string& str, const std::string& searchStr, const std::string& replacementStr)
 {
 	if (searchStr.empty())
 	{
@@ -34,10 +34,10 @@ std::string DecodeHtmlEntityInString(const std::string &str, const std::string &
 	return result;
 }
 
-std::string HtmlDecode(const std::string &html)
+std::string HtmlDecode(const std::string& html)
 {
 	std::string result = html;
-	for (auto & htmlEntity : HTML_ENTITIES)
+	for (auto& htmlEntity : HTML_ENTITIES)
 	{
 		result = DecodeHtmlEntityInString(result, htmlEntity.first, htmlEntity.second);
 	}
