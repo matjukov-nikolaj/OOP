@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "PrimeNumbersGenerator.h"
 
-std::set<int> GetPrimeNumbers(const std::vector<bool> & vec)
+std::set<int> GetPrimeNumbers(const std::vector<bool>& vec)
 {
 	std::set<int> numbers;
 	for (auto i = 2; i < vec.size(); ++i)
@@ -14,14 +14,14 @@ std::set<int> GetPrimeNumbers(const std::vector<bool> & vec)
 	return numbers;
 }
 
-void StartEratosthenesSieve(std::vector<bool> &numbers)
+void StartEratosthenesSieve(std::vector<bool>& numbers)
 {
 	int step = 1;
-	for (size_t i = 2; i*i < numbers.size(); ++i)
+	for (int i = 2; i * i < numbers.size(); ++i)
 	{
 		if (numbers[i])
 		{
-			for (size_t j = i * i; j < numbers.size(); j += i * step)
+			for (int j = i * i; j < numbers.size(); j += i * step)
 			{
 				numbers[j] = false;
 			}
