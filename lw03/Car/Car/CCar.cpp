@@ -96,7 +96,7 @@ bool CCar::SetSpeed(int speed)
 	{
 		return false;
 	}
-	if (m_gear == 0 && std::abs(speed) > std::abs(m_speed))
+	if (m_gear == 0 && speed > m_speed)
 	{
 		return false;
 	}
