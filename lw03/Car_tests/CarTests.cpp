@@ -53,12 +53,18 @@ BOOST_AUTO_TEST_SUITE(car_state)
 			BOOST_CHECK(car.SetGear(-1));
 		}
 
+		BOOST_AUTO_TEST_CASE(try_to_turn_off_engine_when_gear_is_minus_one)
+		{
+			BOOST_CHECK(!car.TurnOffEngine());
+		}
+
 	BOOST_AUTO_TEST_SUITE_END();
 
 	BOOST_AUTO_TEST_SUITE(gear_shift_at_speed)
 
 		BOOST_AUTO_TEST_CASE(try_to_set_speed_when_engine_turned_off)
 		{
+			car.SetGear(0);
 			car.TurnOffEngine();
 			BOOST_CHECK(!car.SetSpeed(10));
 			car.TurnOnEngine();
@@ -70,33 +76,106 @@ BOOST_AUTO_TEST_SUITE(car_state)
 			BOOST_CHECK(car.SetSpeed(20));
 		}
 
-		BOOST_AUTO_TEST_CASE(try_to_set_the_speed_fourty_in_the_first_gear)
+		BOOST_AUTO_TEST_CASE(set_speed_thirty_on_first_gear)
 		{
-			BOOST_CHECK(!car.SetSpeed(40));
+			BOOST_CHECK(car.SetSpeed(30));
 		}
 
-		BOOST_AUTO_TEST_CASE(set_second_gear_and_speed_forty)
+		BOOST_AUTO_TEST_CASE(try_to_set_speed_thirty_one_on_first_gear)
+		{
+			BOOST_CHECK(!car.SetSpeed(31));
+		}
+
+		BOOST_AUTO_TEST_CASE(try_to_set_speed_minus_one_on_first_gear)
+		{
+			BOOST_CHECK(!car.SetSpeed(-1));
+		}
+
+		BOOST_AUTO_TEST_CASE(set_second_gear_at_speed_twenty)
 		{
 			BOOST_CHECK(car.SetGear(2));
+			BOOST_CHECK(car.SetSpeed(20));
+		}
+
+		BOOST_AUTO_TEST_CASE(set_speed_fifty_on_second_gear)
+		{
+			BOOST_CHECK(car.SetSpeed(50));
+		}
+
+		BOOST_AUTO_TEST_CASE(try_to_set_speed_fifty_one_on_second_gear)
+		{
+			BOOST_CHECK(!car.SetSpeed(51));
+		}
+
+		BOOST_AUTO_TEST_CASE(try_to_set_speed_nineteen_on_first_gear)
+		{
+			BOOST_CHECK(!car.SetSpeed(19));
+		}
+
+		BOOST_AUTO_TEST_CASE(set_third_gear_at_speed_thirty)
+		{
+			BOOST_CHECK(car.SetGear(3));
+			BOOST_CHECK(car.SetSpeed(30));
+		}
+
+		BOOST_AUTO_TEST_CASE(set_speed_sixty_on_third_gear)
+		{
+			BOOST_CHECK(car.SetSpeed(60));
+		}
+
+		BOOST_AUTO_TEST_CASE(try_to_set_speed_sixty_one_on_third_gear)
+		{
+			BOOST_CHECK(!car.SetSpeed(61));
+		}
+
+		BOOST_AUTO_TEST_CASE(try_to_set_speed_twenty_nine_on_third_gear)
+		{
+			BOOST_CHECK(!car.SetSpeed(29));
+		}
+
+		BOOST_AUTO_TEST_CASE(set_fourth_gear_at_speed_fourty)
+		{
+			BOOST_CHECK(car.SetGear(4));
 			BOOST_CHECK(car.SetSpeed(40));
 		}
 
-		BOOST_AUTO_TEST_CASE(set_third_gear_at_speed_forty)
+		BOOST_AUTO_TEST_CASE(set_speed_ninety_on_fourth_gear)
 		{
-			BOOST_CHECK(car.SetGear(3));
+			BOOST_CHECK(car.SetSpeed(90));
 		}
 
-		BOOST_AUTO_TEST_CASE(set_fourth_gear_at_speed_forty)
+		BOOST_AUTO_TEST_CASE(try_to_set_speed_ninety_one_on_fourth_gear)
 		{
-			BOOST_CHECK(car.SetGear(4));
+			BOOST_CHECK(!car.SetSpeed(91));
 		}
 
-		BOOST_AUTO_TEST_CASE(try_to_set_fifth_gear_at_speed_forty)
+		BOOST_AUTO_TEST_CASE(try_to_set_speed_thirty_nine_on_fourth_gear)
 		{
-			BOOST_CHECK(!car.SetGear(5));
+			BOOST_CHECK(!car.SetSpeed(39));
 		}
 
-		BOOST_AUTO_TEST_CASE(set_first_gear_from_fourth_having_lowered_speed_to_ten)
+		BOOST_AUTO_TEST_CASE(set_fifth_gear_at_speed_fifty)
+		{
+			BOOST_CHECK(car.SetGear(5));
+			BOOST_CHECK(car.SetSpeed(50));
+		}
+
+		BOOST_AUTO_TEST_CASE(set_speed_one_hundred_fifty_on_fifth_gear)
+		{
+			BOOST_CHECK(car.SetSpeed(150));
+		}
+
+		BOOST_AUTO_TEST_CASE(try_to_set_speed_one_hundred_fifty_one_on_fifth_gear)
+		{
+			BOOST_CHECK(!car.SetSpeed(151));
+		}
+
+		BOOST_AUTO_TEST_CASE(try_to_set_speed_fourty_nine_on_fifth_gear)
+		{
+			BOOST_CHECK(!car.SetSpeed(49));
+		}
+
+		BOOST_AUTO_TEST_CASE(set_first_gear_from_fifth_having_lowered_speed_to_ten)
 		{
 			car.SetGear(0);
 			car.SetSpeed(10);
@@ -111,15 +190,9 @@ BOOST_AUTO_TEST_SUITE(car_state)
 			BOOST_CHECK(car.SetSpeed(10));
 		}
 
-		BOOST_AUTO_TEST_CASE(try_to_set_reverse_gear_and_speed_thirty)
+		BOOST_AUTO_TEST_CASE(try_to_set_reverse_gear_and_speed_twenty_one)
 		{
-			BOOST_CHECK(!car.SetSpeed(30));
-		}
-
-		BOOST_AUTO_TEST_CASE(try_to_set_second_gear_and_speed_ten)
-		{
-			car.SetSpeed(10);
-			BOOST_CHECK(!car.SetGear(2));
+			BOOST_CHECK(!car.SetSpeed(21));
 		}
 
 		BOOST_AUTO_TEST_CASE(try_to_increase_the_speed_in_neutral_gear)

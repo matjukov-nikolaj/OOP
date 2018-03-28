@@ -10,6 +10,8 @@
 #include <iterator>
 #include <iomanip>
 
+static const double ABSOLUTE_NULL = 1E-12;
+
 void ReadVector(std::istream &input, std::vector<double> &vec)
 {
 	std::copy(std::istream_iterator<double>(input), std::istream_iterator<double>(), std::back_inserter(vec));
@@ -32,7 +34,7 @@ void ProcessVector(std::vector<double> &vec, ErrorCode &errorCode)
 	}
 	const double minElement = *min_element(vec.begin(), vec.end());
 	const double maxElement = *max_element(vec.begin(), vec.end());
-	if (abs(minElement) < 1E-12)
+	if (abs(minElement) < ABSOLUTE_NULL)
 	{
 		errorCode = ErrorCode::DivisionByZero;
 		return;

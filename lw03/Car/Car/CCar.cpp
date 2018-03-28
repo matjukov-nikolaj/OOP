@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "CCar.h"
-#include <iostream>
 
 static const std::vector<std::pair<int, int>> SPEED_LIMITS = {
 	{ 0, 20 },
@@ -11,14 +10,6 @@ static const std::vector<std::pair<int, int>> SPEED_LIMITS = {
 	{ 40, 90 },
 	{ 50, 150 }
 };
-
-CCar::CCar()
-{
-}
-
-CCar::~CCar()
-{
-}
 
 bool CCar::IsTurnedOn()
 {
@@ -39,7 +30,7 @@ bool CCar::TurnOffEngine()
 {
 	if (m_engine_is_turned_on)
 	{
-		if (m_speed == 0)
+		if (m_speed == 0 && m_gear == 0)
 		{
 			m_engine_is_turned_on = false;
 			return true;
@@ -52,42 +43,40 @@ bool CCar::TurnOffEngine()
 	return false;
 }
 
-enum class CCar::Gear
+bool CCar::SpeedIsRangeOfGear(int speed, int gear)
 {
-	REVERSE = -1,
-	NEUTRAL = 0,
-	FIRST = 1,
-	SECOND = 2,
-	THIRD = 3,
-	FOURTH = 4,
-	FIFTH = 5
-};
+	const std::pair<int, int> & limits = SPEED_LIMITS[gear + 1];
+	if (speed < limits.first || limits.second < speed)
+	{
+		return false;
+	}
+	return true;
+}
 
 bool CCar::SetGear(int gear)
 {
-	if (!m_engine_is_turned_on && gear != static_cast<int>(Gear::NEUTRAL))
+	if (!m_engine_is_turned_on && gear != static_cast<int>(Gear::Neutral))
 	{
 		return false;
 	}
-	if (gear == static_cast<int>(Gear::REVERSE))
-	{
-		if (m_speed == 0)
-		{
-			m_gear = gear;
-			return true;
-		}
-		return false;
-	}
-	if (gear < static_cast<int>(Gear::REVERSE) || gear > static_cast<int>(Gear::FIFTH))
+
+	if (gear == static_cast<int>(Gear::Reverse) && m_speed != 0)
 	{
 		return false;
 	}
-	if (SPEED_LIMITS[gear + 1].first <= m_speed && m_speed <= SPEED_LIMITS[gear + 1].second)
+
+	if (gear < static_cast<int>(Gear::Reverse) || gear > static_cast<int>(Gear::Fifth))
 	{
-		m_gear = gear;
-		return true;
+		return false;
 	}
-	return false;
+
+	if (!SpeedIsRangeOfGear(m_speed, gear))
+	{
+		return false;
+	}
+
+	m_gear = gear;
+	return true;
 }
 
 bool CCar::SetSpeed(int speed)
@@ -96,16 +85,19 @@ bool CCar::SetSpeed(int speed)
 	{
 		return false;
 	}
+
 	if (m_gear == 0 && speed > m_speed)
 	{
 		return false;
 	}
-	if (SPEED_LIMITS[m_gear + 1].first <= speed && speed <= SPEED_LIMITS[m_gear + 1].second)
+
+	if (!SpeedIsRangeOfGear(speed, m_gear))
 	{
-		m_speed = speed;
-		return true;
+		return false;
 	}
-	return false;
+
+	m_speed = speed;
+	return true;
 }
 
 int CCar::GetGear() const
@@ -120,10 +112,11 @@ int CCar::GetSpeed() const
 
 CCar::MovementDirection CCar::GetMovementDirection() const
 {
-	if (m_speed > 0 && m_gear == static_cast<int>(static_cast<int>(Gear::NEUTRAL)))
+	if (m_speed > 0 && m_gear == static_cast<int>(static_cast<int>(Gear::Neutral)))
 	{
 		return MovementDirection::Back;
 	}
+
 	if (m_speed == 0)
 	{
 		return MovementDirection::Standing;

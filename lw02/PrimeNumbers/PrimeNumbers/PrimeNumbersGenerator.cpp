@@ -1,6 +1,14 @@
 #include "stdafx.h"
 #include "PrimeNumbersGenerator.h"
 
+static const int MAX_BOUND = 100000000;
+static const int MIN_BOUND = 2;
+
+bool IsCorrectUpperBound(int upperBound)
+{
+	return (upperBound >= MIN_BOUND && upperBound <= MAX_BOUND);
+}
+
 std::set<int> GetPrimeNumbers(const std::vector<bool>& vec)
 {
 	std::set<int> numbers;
@@ -14,16 +22,16 @@ std::set<int> GetPrimeNumbers(const std::vector<bool>& vec)
 	return numbers;
 }
 
-void StartEratosthenesSieve(std::vector<bool>& numbers)
+void StartEratosthenesSieve(std::vector<bool>& sieve)
 {
 	int step = 1;
-	for (int i = 2; i * i < numbers.size(); ++i)
+	for (int i = 2; i * i < sieve.size(); ++i)
 	{
-		if (numbers[i])
+		if (sieve[i])
 		{
-			for (int j = i * i; j < numbers.size(); j += i * step)
+			for (int j = i * i; j < sieve.size(); j += i * step)
 			{
-				numbers[j] = false;
+				sieve[j] = false;
 			}
 		}
 		step = 2;
@@ -32,8 +40,8 @@ void StartEratosthenesSieve(std::vector<bool>& numbers)
 
 std::set<int> GeneratePrimeNumbersSet(int upperBound)
 {
-	std::vector<bool> numbers(upperBound + 1, true);
-	StartEratosthenesSieve(numbers);
-	std::set<int> primeNumbers = GetPrimeNumbers(numbers);
+	std::vector<bool> sieve(upperBound + 1, true);
+	StartEratosthenesSieve(sieve);
+	std::set<int> primeNumbers = GetPrimeNumbers(sieve);
 	return primeNumbers;
 }
