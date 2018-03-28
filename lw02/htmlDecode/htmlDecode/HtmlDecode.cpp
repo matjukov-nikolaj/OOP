@@ -17,20 +17,20 @@ std::string DecodeHtmlEntityInString(const std::string& str, const std::string& 
 	}
 	std::string result;
 	size_t pos = 0;
-	for (size_t foundPos = 0; foundPos != std::string::npos; pos = foundPos + searchStr.size())
+	while (pos < str.size())
 	{
-		foundPos = str.find(searchStr, pos);
+		size_t foundPos = str.find(searchStr, pos);
+		result.append(str, pos, foundPos - pos);
 		if (foundPos != std::string::npos)
 		{
-			result.append(str, pos, foundPos - pos);
 			result.append(replacementStr);
+			pos = foundPos + searchStr.size();
 		}
 		else
 		{
 			break;
 		}
 	}
-	result.append(str.substr(pos));
 	return result;
 }
 
