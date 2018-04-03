@@ -4,11 +4,6 @@
 static const int MAX_BOUND = 100000000;
 static const int MIN_BOUND = 2;
 
-bool IsCorrectUpperBound(int upperBound)
-{
-	return (upperBound >= MIN_BOUND && upperBound <= MAX_BOUND);
-}
-
 std::set<int> GetPrimeNumbers(const std::vector<bool>& vec)
 {
 	std::set<int> numbers;

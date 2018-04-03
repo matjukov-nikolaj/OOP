@@ -1,26 +1,17 @@
 #include "stdafx.h"
 #include "CCar.h"
 
-static const std::vector<std::pair<int, int>> SPEED_LIMITS = {
-	{ 0, 20 },
-	{ INT_MIN, INT_MAX },
-	{ 0, 30 },
-	{ 20, 50 },
-	{ 30, 60 },
-	{ 40, 90 },
-	{ 50, 150 }
-};
-
 bool CCar::IsTurnedOn()
 {
-	return m_engine_is_turned_on;
+	return m_engineIsTurnedOn;
 }
 
 bool CCar::TurnOnEngine()
 {
-	if (!m_engine_is_turned_on)
+	if (!m_engineIsTurnedOn)
 	{
-		m_engine_is_turned_on = true;
+		std::cout << "ale" << "\n";
+		m_engineIsTurnedOn = true;
 		return true;
 	}
 	return false;
@@ -28,11 +19,11 @@ bool CCar::TurnOnEngine()
 
 bool CCar::TurnOffEngine()
 {
-	if (m_engine_is_turned_on)
+	if (m_engineIsTurnedOn)
 	{
 		if (m_speed == 0 && m_gear == 0)
 		{
-			m_engine_is_turned_on = false;
+			m_engineIsTurnedOn = false;
 			return true;
 		}
 		else
@@ -45,7 +36,7 @@ bool CCar::TurnOffEngine()
 
 bool CCar::SpeedIsRangeOfGear(int speed, int gear)
 {
-	const std::pair<int, int> & limits = SPEED_LIMITS[gear + 1];
+	const std::pair<int, int>& limits = SPEED_LIMITS[gear + 1];
 	if (speed < limits.first || limits.second < speed)
 	{
 		return false;
@@ -55,7 +46,7 @@ bool CCar::SpeedIsRangeOfGear(int speed, int gear)
 
 bool CCar::SetGear(int gear)
 {
-	if (!m_engine_is_turned_on && gear != static_cast<int>(Gear::Neutral))
+	if (!m_engineIsTurnedOn && gear != static_cast<int>(Gear::Neutral))
 	{
 		return false;
 	}
@@ -81,14 +72,19 @@ bool CCar::SetGear(int gear)
 
 bool CCar::SetSpeed(int speed)
 {
-	if (!m_engine_is_turned_on && speed != 0)
+	if (!m_engineIsTurnedOn && speed != 0)
 	{
 		return false;
 	}
 
-	if (m_gear == 0 && speed > m_speed)
+	if (m_gear == 0 && std::abs(speed) > std::abs(m_speed))
 	{
 		return false;
+	}
+
+	if (m_gear == static_cast<int>(Gear::Reverse))
+	{
+		speed = 0 - speed;
 	}
 
 	if (!SpeedIsRangeOfGear(speed, m_gear))
@@ -107,12 +103,12 @@ int CCar::GetGear() const
 
 int CCar::GetSpeed() const
 {
-	return m_speed;
+	return std::abs(m_speed);
 }
 
 CCar::MovementDirection CCar::GetMovementDirection() const
 {
-	if (m_speed > 0 && m_gear == static_cast<int>(static_cast<int>(Gear::Neutral)))
+	if (m_speed < 0)
 	{
 		return MovementDirection::Back;
 	}

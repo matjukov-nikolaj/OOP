@@ -13,7 +13,7 @@ public:
 	MovementDirection GetMovementDirection() const;
 
 private:
-	bool m_engine_is_turned_on = false;
+	bool m_engineIsTurnedOn = false;
 	int m_gear = 0;
 	int m_speed = 0;
 	bool SpeedIsRangeOfGear(int speed, int gear);
@@ -36,4 +36,14 @@ enum class CCar::MovementDirection
 	Back,
 	Forward,
 	Standing
+};
+
+static const std::vector<std::pair<int, int>> SPEED_LIMITS = {
+	{ -20, 0 },
+	{ INT_MIN, INT_MAX },
+	{ 0, 30 },
+	{ 20, 50 },
+	{ 30, 60 },
+	{ 40, 90 },
+	{ 50, 150 }
 };
