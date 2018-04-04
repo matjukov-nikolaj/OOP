@@ -51,6 +51,16 @@ BOOST_FIXTURE_TEST_SUITE(car, CarFixture)
 		BOOST_CHECK(car.TurnOffEngine());
 	}
 
+	BOOST_AUTO_TEST_CASE(try_to_set_not_neutral_gear_when_engine_off)
+	{
+		BOOST_CHECK(!car.SetGear(1));
+	}
+
+	BOOST_AUTO_TEST_CASE(try_to_set_not_null_speed_when_engine_off)
+	{
+		BOOST_CHECK(!car.SetSpeed(1));
+	}
+
 	struct CarFixtureWhenEngineIsOn : CarFixture
 	{
 		CarFixtureWhenEngineIsOn()
@@ -198,6 +208,24 @@ BOOST_FIXTURE_TEST_SUITE(car, CarFixture)
 			BOOST_AUTO_TEST_CASE(try_to_set_second_gear_at_the_speed_ten)
 			{
 				CheckToSetIncorrectGearAtCurrentSpeed(10, 1, 2, CCar::MovementDirection::Forward);
+			}
+
+			BOOST_AUTO_TEST_CASE(try_to_set_negative_speed)
+			{
+				BOOST_CHECK(!car.SetSpeed(-5));
+			}
+
+			BOOST_AUTO_TEST_CASE(try_to_set_reverse_gear_when_speed_is_not_null)
+			{
+				BOOST_CHECK(car.SetSpeed(5));
+				BOOST_CHECK(car.SetGear(0));
+				BOOST_CHECK(!car.SetGear(-1));
+			}
+
+			BOOST_AUTO_TEST_CASE(try_to_set_speed_on_neutral_gear_that_is_greater_than_current)
+			{
+				BOOST_CHECK(car.SetGear(0));
+				BOOST_CHECK(!car.SetSpeed(11));
 			}
 		BOOST_AUTO_TEST_SUITE_END()
 

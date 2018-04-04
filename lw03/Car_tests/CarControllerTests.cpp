@@ -53,13 +53,13 @@ BOOST_FIXTURE_TEST_SUITE(car_controller, CarControllerFixture)
 
 	BOOST_AUTO_TEST_CASE(try_to_control_engine_off_when_engine_already_is_off)
 	{
-		VerifyCommandHandling("EngineOff", none, none, "  The engine is already off\n");
+		VerifyCommandHandling("EngineOff", none, none, "  Failed to off engine.\n");
 	}
 
 	BOOST_AUTO_TEST_CASE(try_to_control_engine_on_when_engine_already_is_on)
 	{
 		BOOST_CHECK(carController.TurnOnEngine());
-		VerifyCommandHandling("EngineOn", none, none, "  The engine is already on\n");
+		VerifyCommandHandling("EngineOn", none, none, "  Failed to on engine.\n");
 	}
 
 	BOOST_AUTO_TEST_CASE(can_show_info_when_command_is_Info)
@@ -94,6 +94,30 @@ BOOST_FIXTURE_TEST_SUITE(car_controller, CarControllerFixture)
 		BOOST_CHECK(carController.TurnOnEngine());
 		BOOST_CHECK(carController.CCar::SetGear(1));
 		VerifyCommandHandling("SetSpeed 40", 1, 0, "  Failed to set speed.\n");
+	}
+
+	BOOST_AUTO_TEST_CASE(neutral_gear_does_not_change_moving_direction_when_speed_decreases)
+	{
+		BOOST_CHECK(carController.TurnOnEngine());
+		BOOST_CHECK(carController.CCar::SetGear(-1));
+		BOOST_CHECK(carController.CCar::SetSpeed(5));
+		std::string info = "  Engine     :   On\n  Gear       :   -1\n  Speed      :   5\n  Direction  :   back\n";
+		VerifyCommandHandling("Info", -1, 5, info);
+		BOOST_CHECK(carController.CCar::SetGear(0));
+		BOOST_CHECK(carController.CCar::SetSpeed(4));
+		info = "  Engine     :   On\n  Gear       :   0\n  Speed      :   4\n  Direction  :   back\n";
+		VerifyCommandHandling("Info", 0, 4, info);
+	}
+
+	BOOST_AUTO_TEST_CASE(enter_unknown_command)
+	{
+		VerifyCommandHandling("set", none, none, "  Unknown command\n");
+	}
+
+	BOOST_AUTO_TEST_CASE(try_to_set_empty_gear)
+	{
+		BOOST_CHECK(carController.TurnOnEngine());
+		VerifyCommandHandling("SetGear ", 0, 0, "  No entered number.\n");
 	}
 
 BOOST_AUTO_TEST_SUITE_END()

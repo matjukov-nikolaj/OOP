@@ -71,6 +71,11 @@ bool CCar::SetGear(int gear)
 
 bool CCar::SetSpeed(int speed)
 {
+	if (speed < 0)
+	{
+		return false;
+	}
+
 	if (!m_engineIsTurnedOn && speed != 0)
 	{
 		return false;
@@ -81,7 +86,7 @@ bool CCar::SetSpeed(int speed)
 		return false;
 	}
 
-	if (m_gear == static_cast<int>(Gear::Reverse))
+	if (m_gear == static_cast<int>(Gear::Reverse) || m_speed < 0)
 	{
 		speed = 0 - speed;
 	}

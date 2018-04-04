@@ -40,7 +40,7 @@ bool CCarController::EngineOn()
 				 << "\n";
 		return true;
 	}
-	m_output << "  The engine is already on"
+	m_output << "  Failed to on engine."
 			 << "\n";
 	return false;
 }
@@ -53,7 +53,7 @@ bool CCarController::EngineOff()
 				 << "\n";
 		return true;
 	}
-	m_output << "  The engine is already off"
+	m_output << "  Failed to off engine."
 			 << "\n";
 	return false;
 }
@@ -111,8 +111,13 @@ bool CCarController::HandleCommand()
 		{
 			return itSpeedAndGear->second(number);
 		}
+		else
+		{
+			m_output << "  No entered number." << "\n";
+			return false;
+		}
 	}
-	m_output << "Unknown command"
+	m_output << "  Unknown command"
 			 << "\n";
 	return false;
 }
