@@ -19,9 +19,9 @@ std::vector<GearWithSpeedInterval> GetGearsWithSpeedInterval()
 	for (size_t i = 2; i < SPEED_LIMITS.size(); i++)
 	{
 		GearWithSpeedInterval currCarState;
-		currCarState.gear = i - 1;
-		currCarState.minSpeed = SPEED_LIMITS[i].first;
-		currCarState.maxSpeed = SPEED_LIMITS[i].second;
+		currCarState.gear = static_cast<int>(i - 1);
+		currCarState.minSpeed = static_cast<int>(SPEED_LIMITS[i].first);
+		currCarState.maxSpeed = static_cast<int>(SPEED_LIMITS[i].second);
 		carStates.push_back(currCarState);
 	}
 	return carStates;
@@ -323,3 +323,4 @@ BOOST_FIXTURE_TEST_SUITE(car, CarFixture)
 		BOOST_AUTO_TEST_SUITE_END()
 	BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
+
