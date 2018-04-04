@@ -16,7 +16,7 @@ private:
 	bool m_engineIsTurnedOn = false;
 	int m_gear = 0;
 	int m_speed = 0;
-	bool SpeedIsRangeOfGear(int speed, int gear);
+	static bool SpeedIsRangeOfGear(int speed, int gear);
 	enum class Gear;
 };
 
