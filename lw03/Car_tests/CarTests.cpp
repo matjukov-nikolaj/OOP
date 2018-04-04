@@ -16,7 +16,7 @@ struct GearWithSpeedInterval
 std::vector<GearWithSpeedInterval> GetGearsWithSpeedInterval()
 {
 	std::vector<GearWithSpeedInterval> carStates;
-	for (int i = 2; i < SPEED_LIMITS.size(); i++)
+	for (size_t i = 2; i < SPEED_LIMITS.size(); i++)
 	{
 		GearWithSpeedInterval currCarState;
 		currCarState.gear = i - 1;
