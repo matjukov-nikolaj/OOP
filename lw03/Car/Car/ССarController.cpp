@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "ÑÑarController.h"
-#include <sstream>
 
 ÑÑarController::ÑÑarController(std::istream& input, std::ostream& output)
 	: m_input(input)
@@ -10,7 +9,7 @@
 		  { "EngineOff", [&]() { return EngineOff(); } },
 	  })
 	, m_infoHandler({
-		  { "Info", [&]() { return Info(); } },
+		  { "Info", [&]() { Info(); } },
 	  })
 	, m_handleSpeedAndGear({
 		  { "SetSpeed", [&](int number) { return SetSpeed(number); } },
@@ -19,66 +18,12 @@
 {
 }
 
-bool ÑÑarController::TryToGetNumber(std::istream& arg, int& number)
-{
-	std::string argString;
-	arg >> argString;
-	if (argString.empty())
-	{
-		return false;
-	}
-
-	try
-	{
-		number = std::stoi(argString);
-	}
-	catch (const std::exception& e)
-	{
-		std::cout << "  Error: " << e.what() << "\n";
-	}
-	return true;
-}
-
-bool ÑÑarController::HandleCommand()
-{
-	std::string command;
-	std::getline(m_input, command);
-	std::istringstream line(command);
-	std::string action;
-	line >> action;
-
-	auto itEngine = m_engineHandler.find(action);
-	if (itEngine != m_engineHandler.end())
-	{
-		return itEngine->second();
-	}
-
-	auto itInfo = m_infoHandler.find(action);
-	if (itInfo != m_infoHandler.end())
-	{
-		itInfo->second();
-		return true;
-	}
-
-	auto itSpeedAndGear = m_handleSpeedAndGear.find(action);
-	if (itSpeedAndGear != m_handleSpeedAndGear.end())
-	{
-		int number;
-		if (TryToGetNumber(line, number))
-		{
-			return itSpeedAndGear->second(number);
-		}
-	}
-	m_output << "Unknown command" << "\n";
-	return false;
-}
-
 void ÑÑarController::Info()
 {
 	m_output << "  Engine     :   " << (CCar::IsTurnedOn() ? "On" : "Off") << "\n"
 			 << "  Gear       :   " << (CCar::GetGear()) << "\n"
 			 << "  Speed      :   " << (CCar::GetSpeed()) << "\n"
-			 << "  Direction  :   " << (MOVEMENT_DIRECTION.at(GetMovementDirection())) << "\n";
+			 << "  Direction  :   " << (MOVEMENT_DIRECTION.at(CCar::GetMovementDirection())) << "\n";
 }
 
 bool ÑÑarController::EngineOn()
@@ -125,4 +70,50 @@ bool ÑÑarController::SetSpeed(int speed)
 	m_output << "  Failed to set speed."
 			 << "\n";
 	return false;
+}
+
+bool ÑÑarController::HandleCommand()
+{
+	std::string command;
+	std::getline(m_input, command);
+	std::istringstream line(command);
+	std::string action;
+	line >> action;
+
+	auto itEngine = m_engineHandler.find(action);
+	if (itEngine != m_engineHandler.end())
+	{
+		return itEngine->second();
+	}
+
+	auto itInfo = m_infoHandler.find(action);
+	if (itInfo != m_infoHandler.end())
+	{
+		itInfo->second();
+		return true;
+	}
+
+	auto itSpeedAndGear = m_handleSpeedAndGear.find(action);
+	if (itSpeedAndGear != m_handleSpeedAndGear.end())
+	{
+		int number;
+		if (TryGetNumber(line, number))
+		{
+			return itSpeedAndGear->second(number);
+		}
+	}
+	m_output << "Unknown command" << "\n";
+	return false;
+}
+
+bool ÑÑarController::TryGetNumber(std::istream& arg, int& number)
+{
+	std::string argString;
+	arg >> argString;
+	if (argString.empty())
+	{
+		return false;
+	}
+	number = std::stoi(argString);
+	return true;
 }

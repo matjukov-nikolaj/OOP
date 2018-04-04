@@ -10,7 +10,6 @@ bool CCar::TurnOnEngine()
 {
 	if (!m_engineIsTurnedOn)
 	{
-		std::cout << "ale" << "\n";
 		m_engineIsTurnedOn = true;
 		return true;
 	}

@@ -18,7 +18,7 @@ private:
 	const std::map<std::string, std::function<bool()>> m_engineHandler;
 	const std::map<std::string, std::function<void()>> m_infoHandler;
 	const std::map<std::string, std::function<bool(int number)>> m_handleSpeedAndGear;
-	bool TryToGetNumber(std::istream & arg, int& number);
+	bool TryGetNumber(std::istream & arg, int& number);
 };
 
 const std::map<CCar::MovementDirection, std::string> MOVEMENT_DIRECTION = {
