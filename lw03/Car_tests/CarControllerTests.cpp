@@ -12,7 +12,7 @@ struct CarControlDependencies
 
 struct CarControllerFixture : CarControlDependencies
 {
-	ÑÑarController carController;
+	CCarController carController;
 
 	CarControllerFixture()
 		: carController(input, output)

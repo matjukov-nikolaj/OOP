@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ÑÑarController.h"
 
-ÑÑarController::ÑÑarController(std::istream& input, std::ostream& output)
+CCarController::CCarController(std::istream& input, std::ostream& output)
 	: m_input(input)
 	, m_output(output)
 	, m_engineHandler({
@@ -18,7 +18,13 @@
 {
 }
 
-void ÑÑarController::Info()
+static const std::map<CCar::MovementDirection, std::string> MOVEMENT_DIRECTION = {
+	{ CCar::MovementDirection::Back, "back" },
+	{ CCar::MovementDirection::Forward, "forward" },
+	{ CCar::MovementDirection::Standing, "standing" }
+};
+
+void CCarController::Info()
 {
 	m_output << "  Engine     :   " << (CCar::IsTurnedOn() ? "On" : "Off") << "\n"
 			 << "  Gear       :   " << (CCar::GetGear()) << "\n"
@@ -26,29 +32,33 @@ void ÑÑarController::Info()
 			 << "  Direction  :   " << (MOVEMENT_DIRECTION.at(CCar::GetMovementDirection())) << "\n";
 }
 
-bool ÑÑarController::EngineOn()
+bool CCarController::EngineOn()
 {
 	if (CCar::TurnOnEngine())
 	{
-		m_output << "  Engine     :   On" << "\n";
+		m_output << "  Engine     :   On"
+				 << "\n";
 		return true;
 	}
-	m_output << "  The engine is already on" << "\n";
+	m_output << "  The engine is already on"
+			 << "\n";
 	return false;
 }
 
-bool ÑÑarController::EngineOff()
+bool CCarController::EngineOff()
 {
 	if (CCar::TurnOffEngine())
 	{
-		m_output << "  Engine     :   Off"<< "\n";
+		m_output << "  Engine     :   Off"
+				 << "\n";
 		return true;
 	}
-	m_output << "  The engine is already off" << "\n";
+	m_output << "  The engine is already off"
+			 << "\n";
 	return false;
 }
 
-bool ÑÑarController::SetGear(int gear)
+bool CCarController::SetGear(int gear)
 {
 	if (CCar::SetGear(gear))
 	{
@@ -60,7 +70,7 @@ bool ÑÑarController::SetGear(int gear)
 	return false;
 }
 
-bool ÑÑarController::SetSpeed(int speed)
+bool CCarController::SetSpeed(int speed)
 {
 	if (CCar::SetSpeed(speed))
 	{
@@ -72,7 +82,7 @@ bool ÑÑarController::SetSpeed(int speed)
 	return false;
 }
 
-bool ÑÑarController::HandleCommand()
+bool CCarController::HandleCommand()
 {
 	std::string command;
 	std::getline(m_input, command);
@@ -102,11 +112,12 @@ bool ÑÑarController::HandleCommand()
 			return itSpeedAndGear->second(number);
 		}
 	}
-	m_output << "Unknown command" << "\n";
+	m_output << "Unknown command"
+			 << "\n";
 	return false;
 }
 
-bool ÑÑarController::TryGetNumber(std::istream& arg, int& number)
+bool CCarController::TryGetNumber(std::istream& arg, int& number)
 {
 	std::string argString;
 	arg >> argString;
