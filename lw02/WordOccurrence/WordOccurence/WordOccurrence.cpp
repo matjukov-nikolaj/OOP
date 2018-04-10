@@ -1,13 +1,31 @@
 #include "stdafx.h"
 #include "WordOccurrence.h"
+#include "regex"
 
-std::map<std::string, int> CalculationFrequencyWordsOccurrence(const std::string &str)
+std::string RemoveConstraintCharactersFromWord(std::string& str)
+{
+	static const std::string specialSymbols = "!\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
+	std::string result = "";
+	char ch = ' ';
+
+	for (size_t i = 0; i < str.size(); ++i)
+	{
+		ch = str[i];
+		if (specialSymbols.find(ch) == std::string::npos)
+		{
+			result += ch;
+		}
+	}
+
+	return result;
+}
+
+std::map<std::string, int> CalculationFrequencyWordsOccurrence(const std::string& str)
 {
 	std::map<std::string, int> wordsOccurrence;
 	if (str.empty())
 	{
 		return wordsOccurrence;
-
 	}
 
 	std::string word;
@@ -16,7 +34,11 @@ std::map<std::string, int> CalculationFrequencyWordsOccurrence(const std::string
 	while (strm >> word)
 	{
 		std::transform(word.begin(), word.end(), word.begin(), tolower);
-		wordsOccurrence[word]++;
+		word = RemoveConstraintCharactersFromWord(word);
+		if (!word.empty())
+		{
+			wordsOccurrence[word]++;
+		}
 	}
 
 	return wordsOccurrence;
