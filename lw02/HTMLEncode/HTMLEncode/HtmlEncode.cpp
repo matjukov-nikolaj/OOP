@@ -1,12 +1,12 @@
 #include "stdafx.h"
-#include "HtmlDecode.h"
+#include "HtmlEncode.h"
 
-static const std::unordered_map<std::string, std::string> HTML_ENTITIES = {
-	{ "&quot;", "\"" },
-	{ "&apos;", "'" },
-	{ "&lt;", "<" },
-	{ "&gt;", ">" },
-	{ "&amp;", "&" }
+const std::unordered_map<std::string, std::string> HTML_ENTITIES = {
+	{ ">", "&gt;" },
+	{ "&", "&amp;" },
+	{ "'", "&apos;" },
+	{ "<", "&lt;" },
+	{ "\"", "&quot;" }
 };
 
 std::string DecodeHtmlEntityInString(const std::string& str, const std::string& searchStr, const std::string& replacementStr)
@@ -34,7 +34,7 @@ std::string DecodeHtmlEntityInString(const std::string& str, const std::string& 
 	return result;
 }
 
-std::string HtmlDecode(const std::string& html)
+std::string HtmlEncode(const std::string& html)
 {
 	std::string result = html;
 	for (auto& htmlEntity : HTML_ENTITIES)

@@ -88,7 +88,7 @@ bool CCar::SetSpeed(int speed)
 
 	if (m_gear == static_cast<int>(Gear::Reverse) || m_speed < 0)
 	{
-		speed = 0 - speed;
+		speed = - speed;
 	}
 
 	if (!SpeedIsRangeOfGear(speed, m_gear))
