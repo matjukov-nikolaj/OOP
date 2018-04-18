@@ -1,6 +1,7 @@
 #pragma once
 #include "CSolidShape.h"
 #include "CPoint.h"
+#include "ICanvas.h"
 
 class CRectangle : public CSolidShape
 {
@@ -18,6 +19,7 @@ public:
 	CPoint GetRightBottom() const;
 	double GetWidth() const;
 	double GetHeight() const;
+	void Draw(ICanvas & canvas) const override;
 protected:
 	void AppendProperties(std::ostream & strm) const override;
 private:

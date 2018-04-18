@@ -1,6 +1,8 @@
 #pragma once
 #include "CSolidShape.h"
 #include "CPoint.h"
+#include "ICanvas.h"
+
 class CTraingle : public CSolidShape
 {
 public:
@@ -12,8 +14,9 @@ public:
 	CPoint GetVertexFirst() const;
 	CPoint GetVertexSecond() const;
 	CPoint GetVertexThird() const;
+	void Draw(ICanvas & canvas) const override;
 protected:
-	void AppendProperties(std::ostream & strm) const override;
+	void AppendProperties(std::ostream & strm) const;
 private:
 	CPoint m_firstVertex;
 	CPoint m_secondVertex;

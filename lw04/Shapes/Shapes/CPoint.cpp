@@ -33,6 +33,16 @@ double CPoint::GetYCoord() const
 	return m_y;
 }
 
+void CPoint::SetXCoord(double x)
+{
+	m_x = x;
+}
+
+void CPoint::SetYCoord(double y)
+{
+	m_y = y;
+}
+
 CPoint::~CPoint()
 {
 }

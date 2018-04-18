@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CTraingle.h"
 #include "Config.h"
+#include "ConvertType.h"
 
 
 CTraingle::CTraingle(const CPoint & v1, const CPoint & v2, const CPoint & v3,
@@ -49,6 +50,22 @@ CPoint CTraingle::GetVertexSecond() const
 CPoint CTraingle::GetVertexThird() const
 {
 	return m_thirdVertex;
+}
+
+void CTraingle::Draw(ICanvas & canvas) const
+{
+	std::vector<CPoint> points = {
+		GetVertexFirst(),
+		GetVertexSecond(),
+		GetVertexThird()
+	};
+
+	canvas.FillPolygon(points, StringToUInt(GetFillColor()));
+
+	uint32_t outlineColor = StringToUInt(GetOutlineColor());
+	canvas.DrawLine(points[0], points[1], outlineColor);
+	canvas.DrawLine(points[1], points[2], outlineColor);
+	canvas.DrawLine(points[0], points[2], outlineColor);
 }
 
 void CTraingle::AppendProperties(std::ostream & strm) const

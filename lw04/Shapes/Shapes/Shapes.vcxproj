@@ -171,27 +171,33 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CCanvas.h" />
     <ClInclude Include="CCircle.h" />
     <ClInclude Include="CLineSegment.h" />
     <ClInclude Include="ConvertType.h" />
     <ClInclude Include="CPoint.h" />
     <ClInclude Include="CRectangle.h" />
     <ClInclude Include="CShape.h" />
+    <ClInclude Include="CShapeCreator.h" />
     <ClInclude Include="CSolidShape.h" />
     <ClInclude Include="CTraingle.h" />
     <ClInclude Include="Config.h" />
+    <ClInclude Include="ICanvas.h" />
+    <ClInclude Include="ICanvasDrawable.h" />
     <ClInclude Include="IShape.h" />
     <ClInclude Include="ISolidShape.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CCanvas.cpp" />
     <ClCompile Include="CCircle.cpp" />
     <ClCompile Include="CLineSegment.cpp" />
     <ClCompile Include="ConvertType.cpp" />
     <ClCompile Include="CPoint.cpp" />
     <ClCompile Include="CRectangle.cpp" />
     <ClCompile Include="CShape.cpp" />
+    <ClCompile Include="CShapeCreator.cpp" />
     <ClCompile Include="CSolidShape.cpp" />
     <ClCompile Include="CTraingle.cpp" />
     <ClCompile Include="IShape.cpp" />

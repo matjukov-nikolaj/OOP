@@ -1,0 +1,17 @@
+rectangle 0 300 800 300 00ff00 00ff00
+rectangle 0 0 800 300 42aaff 42aaff
+rectangle 300 250 200 200 964b00 964b00
+triangle 290 250 400 100 510 250 7b3f00 7b3f00
+rectangle 350 300 100 100 000000 ffffff
+rectangle 395 300 10 100 000000 964b00
+rectangle 440 100 30 100 7b3f00 7b3f00 
+circle 450 70 10 808080 808080
+circle 480 40 10 808080 808080
+circle 180 40 40 ffffff ffffff
+circle 160 30 30 ffffff ffffff
+circle 155 40 20 ffffff ffffff
+circle 155 70 25 ffffff ffffff
+circle 580 40 30 ffffff ffffff
+circle 560 30 30 ffffff ffffff
+circle 555 40 30 ffffff ffffff
+circle 610 34 30 ffffff ffffff

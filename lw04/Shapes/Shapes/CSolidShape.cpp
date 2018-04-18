@@ -15,7 +15,9 @@ std::string CSolidShape::GetOutlineColor() const
 
 std::string CSolidShape::ToString() const
 {
-	return CShape::ToString();
+	std::ostringstream strm;
+	strm << "\tfill color = " << GetFillColor() << std::endl;
+	return CShape::ToString() + strm.str();
 }
 
 std::string CSolidShape::GetFillColor() const

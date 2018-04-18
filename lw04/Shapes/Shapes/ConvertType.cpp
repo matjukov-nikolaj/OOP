@@ -10,3 +10,12 @@ const std::string DoubleToString(double value)
 	strm >> str;
 	return str;
 }
+
+const uint32_t StringToUInt(const std::string & str)
+{
+	uint32_t x;
+	std::stringstream ss;
+	ss << std::hex << str;
+	ss >> x;
+	return x;
+}

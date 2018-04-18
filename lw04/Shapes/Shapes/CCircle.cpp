@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CCircle.h"
 #include "Config.h"
+#include "ConvertType.h"
 
 CCircle::CCircle(const CPoint & center, double radius, const std::string & outlineColor, const std::string & fillColor)
 	: m_radius(radius)
@@ -35,6 +36,12 @@ CPoint CCircle::GetCenter() const
 double CCircle::GetRadius() const
 {
 	return m_radius;
+}
+
+void CCircle::Draw(ICanvas & canvas) const
+{
+	canvas.FillCircle(m_center, m_radius, StringToUInt(GetFillColor()));
+	canvas.DrawCircle(GetCenter(), GetRadius(), StringToUInt(GetOutlineColor()));
 }
 
 void CCircle::AppendProperties(std::ostream & strm) const

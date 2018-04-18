@@ -1,5 +1,7 @@
 #pragma once
-class IShape
+#include "ICanvasDrawable.h"
+
+class IShape : public ICanvasDrawable
 {
 public:
 	IShape();

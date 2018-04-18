@@ -6,7 +6,6 @@ ISolidShape::ISolidShape()
 {
 }
 
-
 ISolidShape::~ISolidShape()
 {
 }

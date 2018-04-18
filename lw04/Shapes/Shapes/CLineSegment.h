@@ -1,6 +1,7 @@
 #pragma once
 #include "CShape.h"
 #include "CPoint.h"
+#include "ICanvas.h"
 
 class CLineSegment : public CShape
 {
@@ -10,6 +11,7 @@ public:
 	double GetPerimeter() const override;
 	CPoint GetStartPoint() const;
 	CPoint GetEndPoint() const;
+	void Draw(ICanvas & canvas) const override;
 	~CLineSegment();
 protected:
 	void AppendProperties(std::ostream & strm) const override;

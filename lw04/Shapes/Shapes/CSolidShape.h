@@ -12,7 +12,7 @@ public:
 	std::string GetFillColor() const;
 	~CSolidShape();
 protected:
-	void AppendProperties(std::ostream & strm) const override;
+	void AppendProperties(std::ostream & strm) const;
 private:
 	std::string m_fillColor;
 };

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CRectangle.h"
 #include "Config.h"
+#include "ConvertType.h"
 
 CRectangle::CRectangle(const CPoint & leftTop,
 	double width, double height, 
@@ -63,6 +64,24 @@ double CRectangle::GetWidth() const
 double CRectangle::GetHeight() const
 {
 	return m_height;
+}
+
+void CRectangle::Draw(ICanvas & canvas) const
+{
+	std::vector<CPoint> points = {
+		GetLeftTop(),
+		GetRightTop(),
+		GetRightBottom(),
+		GetLeftBottom(),
+	};
+
+	canvas.FillPolygon(points, StringToUInt(GetFillColor()));
+
+	uint32_t outlineColor = StringToUInt(GetOutlineColor());
+	canvas.DrawLine(points[0], points[1], outlineColor);
+	canvas.DrawLine(points[1], points[2], outlineColor);
+	canvas.DrawLine(points[2], points[3], outlineColor);
+	canvas.DrawLine(points[3], points[0], outlineColor);
 }
 
 void CRectangle::AppendProperties(std::ostream & strm) const
