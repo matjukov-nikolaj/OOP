@@ -13,15 +13,12 @@ std::string FindAndReplace(const std::string& subject, const std::string& search
 	{
 		size_t foundPos = subject.find(search, pos);
 		result.append(subject, pos, foundPos - pos);
-		if (foundPos != std::string::npos)
-		{
-			result.append(replace);
-			pos = foundPos + search.size();
-		}
-		else
+		if (foundPos == std::string::npos)
 		{
 			break;
 		}
+		result.append(replace);
+		pos = foundPos + search.size();
 	}
 	return result;
 }

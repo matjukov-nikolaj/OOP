@@ -2,7 +2,7 @@
 #include "WordOccurrence.h"
 #include "regex"
 
-std::string RemoveConstraintCharactersFromWord(std::string& str)
+std::string RemoveConstraintCharactersFromWord(const std::string& str)
 {
 	static const std::string specialSymbols = "!\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
 	std::string result = "";
@@ -44,11 +44,10 @@ std::map<std::string, int> CalculationFrequencyWordsOccurrence(const std::string
 	return wordsOccurrence;
 }
 
-void PrintFrequencyWordsOccurrence(std::ostream& output, std::map<std::string, int> wordsOccurrence)
+void PrintFrequencyWordsOccurrence(std::ostream& output, const std::map<std::string, int> &wordsOccurrence)
 {
-	std::map<std::string, int>::iterator it;
-	for (it = wordsOccurrence.begin(); it != wordsOccurrence.end(); ++it)
+	for (auto word: wordsOccurrence)
 	{
-		output << it->first << " : " << it->second << "\n";
+		output << word.first << " : " << word.second << "\n";
 	}
 }
