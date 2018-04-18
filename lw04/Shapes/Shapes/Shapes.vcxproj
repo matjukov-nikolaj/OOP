@@ -179,7 +179,7 @@
     <ClInclude Include="CShape.h" />
     <ClInclude Include="CShapeCreator.h" />
     <ClInclude Include="CSolidShape.h" />
-    <ClInclude Include="CTraingle.h" />
+    <ClInclude Include="CTriangle.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="CUtilites.h" />
     <ClInclude Include="ICanvas.h" />
@@ -198,7 +198,7 @@
     <ClCompile Include="CShape.cpp" />
     <ClCompile Include="CShapeCreator.cpp" />
     <ClCompile Include="CSolidShape.cpp" />
-    <ClCompile Include="CTraingle.cpp" />
+    <ClCompile Include="CTriangle.cpp" />
     <ClCompile Include="CUtilites.cpp" />
     <ClCompile Include="IShape.cpp" />
     <ClCompile Include="ISolidShape.cpp" />

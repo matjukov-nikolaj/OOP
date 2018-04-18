@@ -36,9 +36,6 @@
     <ClInclude Include="CSolidShape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CTraingle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -66,6 +63,9 @@
     <ClInclude Include="CUtilites.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CTriangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -89,9 +89,6 @@
     <ClCompile Include="CSolidShape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CTraingle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CRectangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -108,6 +105,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CUtilites.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CTriangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

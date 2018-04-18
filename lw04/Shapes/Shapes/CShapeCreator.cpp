@@ -2,7 +2,7 @@
 #include "CShapeCreator.h"
 #include "Config.h"
 #include "CLineSegment.h"
-#include "CTraingle.h"
+#include "CTriangle.h"
 #include "CRectangle.h"
 #include "CCircle.h"
 using namespace std::placeholders;
@@ -27,7 +27,6 @@ std::shared_ptr<IShape> CShapeCreator::HandleCommand() const
 	if (!std::getline(m_input, command))
 	{
 		return {};
-		//throw std::exception("Empty string");
 	}
 	std::transform(command.begin(), command.end(), command.begin(), tolower);
 	std::istringstream strm(command);
@@ -71,7 +70,7 @@ std::shared_ptr<IShape> CShapeCreator::CreateTriangle(std::istringstream & strm)
 	}
 	AddOpacityToColor(outlineColor);
 	AddOpacityToColor(fillColor);
-	return std::make_shared<CTraingle>(v1, v2, v3, outlineColor, fillColor);
+	return std::make_shared<CTriangle>(v1, v2, v3, outlineColor, fillColor);
 }
 
 std::shared_ptr<IShape> CShapeCreator::CreateRectangle(std::istringstream & strm) const

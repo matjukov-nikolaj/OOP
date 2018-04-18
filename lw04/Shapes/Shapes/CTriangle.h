@@ -3,12 +3,12 @@
 #include "CPoint.h"
 #include "ICanvas.h"
 
-class CTraingle : public CSolidShape
+class CTriangle : public CSolidShape
 {
 public:
-	CTraingle(const CPoint & v1, const CPoint &v2, const CPoint& v3,
+	CTriangle(const CPoint & v1, const CPoint &v2, const CPoint& v3,
 		const std::string & outlineColor, const std::string & fillColor);
-	~CTraingle();
+	~CTriangle();
 	double GetArea() const override;
 	double GetPerimeter() const override;
 	CPoint GetVertexFirst() const;
@@ -21,5 +21,6 @@ private:
 	CPoint m_firstVertex;
 	CPoint m_secondVertex;
 	CPoint m_thirdVertex;
+	bool OrientingAreaOfTriangleIsEqualZero(const CPoint &v1, const CPoint &v2, const CPoint &v3) const;
 };
 

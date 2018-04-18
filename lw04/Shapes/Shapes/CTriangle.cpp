@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "CTraingle.h"
+#include "CTriangle.h"
 #include "Config.h"
 #include "CUtilites.h"
 
 
-CTraingle::CTraingle(const CPoint & v1, const CPoint & v2, const CPoint & v3,
+CTriangle::CTriangle(const CPoint & v1, const CPoint & v2, const CPoint & v3,
 	const std::string & outlineColor, const std::string & fillColor)
 	: CSolidShape("Triangle", outlineColor, fillColor)
 {
@@ -18,18 +18,18 @@ CTraingle::CTraingle(const CPoint & v1, const CPoint & v2, const CPoint & v3,
 	m_thirdVertex = v3;
 }
 
-CTraingle::~CTraingle()
+CTriangle::~CTriangle()
 {
 }
 
-double CTraingle::GetPerimeter() const
+double CTriangle::GetPerimeter() const
 {
 	return (m_firstVertex.GetDistanceToPoint(m_secondVertex)
 		+ m_secondVertex.GetDistanceToPoint(m_thirdVertex)
 		+ m_thirdVertex.GetDistanceToPoint(m_firstVertex));
 }
 
-double CTraingle::GetArea() const
+double CTriangle::GetArea() const
 {
 	return abs(HALF_DIGIT_ONE * 
 		(m_firstVertex.GetXCoord() * (m_secondVertex.GetYCoord() - m_thirdVertex.GetYCoord())
@@ -37,22 +37,22 @@ double CTraingle::GetArea() const
 		+ m_thirdVertex.GetXCoord() * (m_firstVertex.GetYCoord() - m_secondVertex.GetYCoord())));
 }
 
-CPoint CTraingle::GetVertexFirst() const
+CPoint CTriangle::GetVertexFirst() const
 {
 	return m_firstVertex;
 }
 
-CPoint CTraingle::GetVertexSecond() const
+CPoint CTriangle::GetVertexSecond() const
 {
 	return m_secondVertex;
 }
 
-CPoint CTraingle::GetVertexThird() const
+CPoint CTriangle::GetVertexThird() const
 {
 	return m_thirdVertex;
 }
 
-void CTraingle::Draw(ICanvas & canvas) const
+void CTriangle::Draw(ICanvas & canvas) const
 {
 	std::vector<CPoint> points = {
 		GetVertexFirst(),
@@ -68,9 +68,17 @@ void CTraingle::Draw(ICanvas & canvas) const
 	canvas.DrawLine(points[0], points[2], outlineColor);
 }
 
-void CTraingle::AppendProperties(std::ostream & strm) const
+void CTriangle::AppendProperties(std::ostream & strm) const
 {
 	strm << "\tfirst vertex = " << GetVertexFirst().ToString() << "\n"
 		<< "\tsecond vertex = " << GetVertexSecond().ToString() << "\n"
 		<< "\tthird vertex = " << GetVertexThird().ToString() << "\n";
+}
+
+bool CTriangle::OrientingAreaOfTriangleIsEqualZero(const CPoint & v1, const CPoint & v2, const CPoint & v3) const
+{
+	return (abs(v1.GetXCoord() * (v2.GetYCoord() - v3.GetYCoord())
+		+ v1.GetYCoord() * (v2.GetXCoord() - v3.GetXCoord())
+		+ (v2.GetXCoord() * v3.GetYCoord())
+		- (v2.GetYCoord() * v3.GetXCoord())) < ABSOLUTE_ZERO);
 }

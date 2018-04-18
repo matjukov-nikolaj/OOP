@@ -2,16 +2,6 @@
 #include "CUtilites.h"
 #include "Config.h"
 
-
-CUtilites::CUtilites()
-{
-}
-
-
-CUtilites::~CUtilites()
-{
-}
-
 const std::string CUtilites::DoubleToString(double value)
 {
 	std::stringstream strm;
