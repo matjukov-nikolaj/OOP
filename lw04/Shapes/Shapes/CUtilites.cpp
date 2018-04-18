@@ -1,8 +1,18 @@
 #include "stdafx.h"
-#include "ConvertType.h"
+#include "CUtilites.h"
 #include "Config.h"
 
-const std::string DoubleToString(double value)
+
+CUtilites::CUtilites()
+{
+}
+
+
+CUtilites::~CUtilites()
+{
+}
+
+const std::string CUtilites::DoubleToString(double value)
 {
 	std::stringstream strm;
 	strm << std::setprecision(NUMBER_DIGIT_AFTER_DECIMAL) << value;
@@ -11,7 +21,7 @@ const std::string DoubleToString(double value)
 	return str;
 }
 
-const uint32_t StringToUInt(const std::string & str)
+const uint32_t CUtilites::StringToUInt(const std::string & str)
 {
 	uint32_t x;
 	std::stringstream ss;

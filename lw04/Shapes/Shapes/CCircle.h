@@ -16,7 +16,7 @@ public:
 	double GetRadius() const;
 	void Draw(ICanvas & canvas) const override;
 protected:
-	void AppendProperties(std::ostream & strm) const override;
+	void AppendProperties(std::ostream & strm) const;
 private:
 	double m_radius;
 	CPoint m_center;

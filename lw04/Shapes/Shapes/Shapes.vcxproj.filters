@@ -30,9 +30,6 @@
     <ClInclude Include="CLineSegment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ConvertType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ISolidShape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -66,6 +63,9 @@
     <ClInclude Include="ICanvasDrawable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CUtilites.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -81,9 +81,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CLineSegment.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ConvertType.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ISolidShape.cpp">
@@ -108,6 +105,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CShapeCreator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CUtilites.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

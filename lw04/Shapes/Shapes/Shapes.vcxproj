@@ -174,7 +174,6 @@
     <ClInclude Include="CCanvas.h" />
     <ClInclude Include="CCircle.h" />
     <ClInclude Include="CLineSegment.h" />
-    <ClInclude Include="ConvertType.h" />
     <ClInclude Include="CPoint.h" />
     <ClInclude Include="CRectangle.h" />
     <ClInclude Include="CShape.h" />
@@ -182,6 +181,7 @@
     <ClInclude Include="CSolidShape.h" />
     <ClInclude Include="CTraingle.h" />
     <ClInclude Include="Config.h" />
+    <ClInclude Include="CUtilites.h" />
     <ClInclude Include="ICanvas.h" />
     <ClInclude Include="ICanvasDrawable.h" />
     <ClInclude Include="IShape.h" />
@@ -193,13 +193,13 @@
     <ClCompile Include="CCanvas.cpp" />
     <ClCompile Include="CCircle.cpp" />
     <ClCompile Include="CLineSegment.cpp" />
-    <ClCompile Include="ConvertType.cpp" />
     <ClCompile Include="CPoint.cpp" />
     <ClCompile Include="CRectangle.cpp" />
     <ClCompile Include="CShape.cpp" />
     <ClCompile Include="CShapeCreator.cpp" />
     <ClCompile Include="CSolidShape.cpp" />
     <ClCompile Include="CTraingle.cpp" />
+    <ClCompile Include="CUtilites.cpp" />
     <ClCompile Include="IShape.cpp" />
     <ClCompile Include="ISolidShape.cpp" />
     <ClCompile Include="main.cpp" />

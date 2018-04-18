@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CRectangle.h"
 #include "Config.h"
-#include "ConvertType.h"
+#include "CUtilites.h"
 
 CRectangle::CRectangle(const CPoint & leftTop,
 	double width, double height, 
@@ -14,11 +14,11 @@ CRectangle::CRectangle(const CPoint & leftTop,
 {
 	if (width <= 0)
 	{
-		throw std::exception("The width can not be less than or equal to zero");
+		throw std::invalid_argument("The width can not be less than or equal to zero");
 	}
 	if (height <= 0)
 	{
-		throw std::exception("The height can not be less than or equal to zero");
+		throw std::invalid_argument("The height can not be less than or equal to zero");
 	}
 }
 
@@ -75,9 +75,9 @@ void CRectangle::Draw(ICanvas & canvas) const
 		GetLeftBottom(),
 	};
 
-	canvas.FillPolygon(points, StringToUInt(GetFillColor()));
+	canvas.FillPolygon(points, CUtilites::StringToUInt(GetFillColor()));
 
-	uint32_t outlineColor = StringToUInt(GetOutlineColor());
+	uint32_t outlineColor = CUtilites::StringToUInt(GetOutlineColor());
 	canvas.DrawLine(points[0], points[1], outlineColor);
 	canvas.DrawLine(points[1], points[2], outlineColor);
 	canvas.DrawLine(points[2], points[3], outlineColor);

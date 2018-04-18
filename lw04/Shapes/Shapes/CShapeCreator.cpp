@@ -27,6 +27,7 @@ std::shared_ptr<IShape> CShapeCreator::HandleCommand() const
 	if (!std::getline(m_input, command))
 	{
 		return {};
+		//throw std::exception("Empty string");
 	}
 	std::transform(command.begin(), command.end(), command.begin(), tolower);
 	std::istringstream strm(command);
@@ -50,7 +51,7 @@ std::shared_ptr<IShape> CShapeCreator::CreateLine(std::istringstream & strm) con
 	AddOpacityToColor(color);
 	if (!IsValidColor(color))
 	{
-		throw std::exception("Invalid color");
+		throw std::invalid_argument("Invalid color");
 	}
 	AddOpacityToColor(color);
 	return std::make_shared<CLineSegment>(start, end, color);
@@ -66,7 +67,7 @@ std::shared_ptr<IShape> CShapeCreator::CreateTriangle(std::istringstream & strm)
 	strm >> outlineColor >> fillColor;
 	if (!IsValidColor(outlineColor) || !IsValidColor(fillColor))
 	{
-		throw std::exception("Invalid color");
+		throw std::invalid_argument("Invalid color");
 	}
 	AddOpacityToColor(outlineColor);
 	AddOpacityToColor(fillColor);
@@ -84,7 +85,7 @@ std::shared_ptr<IShape> CShapeCreator::CreateRectangle(std::istringstream & strm
 	strm >> outlineColor >> fillColor;
 	if (!IsValidColor(outlineColor) || !IsValidColor(fillColor))
 	{
-		throw std::exception("Invalid color");
+		throw std::invalid_argument("Invalid color");
 	}
 	AddOpacityToColor(outlineColor);
 	AddOpacityToColor(fillColor);
@@ -102,7 +103,7 @@ std::shared_ptr<IShape> CShapeCreator::CreateCircle(std::istringstream & strm) c
 	strm >> outlineColor >> fillColor;
 	if (!IsValidColor(outlineColor) || !IsValidColor(fillColor))
 	{
-		throw std::exception("Invalid color");
+		throw std::invalid_argument("Invalid color");
 	}
 	AddOpacityToColor(outlineColor);
 	AddOpacityToColor(fillColor);

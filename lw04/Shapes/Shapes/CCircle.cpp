@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CCircle.h"
 #include "Config.h"
-#include "ConvertType.h"
+#include "CUtilites.h"
 
 CCircle::CCircle(const CPoint & center, double radius, const std::string & outlineColor, const std::string & fillColor)
 	: m_radius(radius)
@@ -10,7 +10,7 @@ CCircle::CCircle(const CPoint & center, double radius, const std::string & outli
 {
 	if (radius <= ABSOLUTE_ZERO)
 	{
-		throw std::exception("The radius can not be less than or equal to zero");
+		throw std::invalid_argument("The radius can not be less than or equal to zero");
 	}
 }
 
@@ -40,8 +40,8 @@ double CCircle::GetRadius() const
 
 void CCircle::Draw(ICanvas & canvas) const
 {
-	canvas.FillCircle(m_center, m_radius, StringToUInt(GetFillColor()));
-	canvas.DrawCircle(GetCenter(), GetRadius(), StringToUInt(GetOutlineColor()));
+	canvas.FillCircle(m_center, m_radius, CUtilites::StringToUInt(GetFillColor()));
+	canvas.DrawCircle(GetCenter(), GetRadius(), CUtilites::StringToUInt(GetOutlineColor()));
 }
 
 void CCircle::AppendProperties(std::ostream & strm) const

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CTraingle.h"
 #include "Config.h"
-#include "ConvertType.h"
+#include "CUtilites.h"
 
 
 CTraingle::CTraingle(const CPoint & v1, const CPoint & v2, const CPoint & v3,
@@ -11,7 +11,7 @@ CTraingle::CTraingle(const CPoint & v1, const CPoint & v2, const CPoint & v3,
 	if (abs(v1.GetXCoord() * (v2.GetYCoord() - v3.GetYCoord()) + v1.GetYCoord() * (v2.GetXCoord() - v3.GetXCoord())
 		+ (v2.GetXCoord() * v3.GetYCoord()) - (v2.GetYCoord() * v3.GetXCoord())) < ABSOLUTE_ZERO)
 	{
-		throw std::exception("Incorrect points, you can not create a triangle");
+		throw std::invalid_argument("Incorrect points, you can not create a triangle");
 	}
 	m_firstVertex = v1;
 	m_secondVertex = v2;
@@ -60,9 +60,9 @@ void CTraingle::Draw(ICanvas & canvas) const
 		GetVertexThird()
 	};
 
-	canvas.FillPolygon(points, StringToUInt(GetFillColor()));
+	canvas.FillPolygon(points, CUtilites::StringToUInt(GetFillColor()));
 
-	uint32_t outlineColor = StringToUInt(GetOutlineColor());
+	uint32_t outlineColor = CUtilites::StringToUInt(GetOutlineColor());
 	canvas.DrawLine(points[0], points[1], outlineColor);
 	canvas.DrawLine(points[1], points[2], outlineColor);
 	canvas.DrawLine(points[0], points[2], outlineColor);

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CPoint.h"
-#include "ConvertType.h"
+#include "CUtilites.h"
 #include "Config.h"
 
 CPoint::CPoint()
@@ -15,7 +15,7 @@ CPoint::CPoint(double x, double y)
 
 std::string CPoint::ToString() const
 {
-	return "(" + DoubleToString(m_x) + ", " + DoubleToString(m_y) + ")";
+	return "(" + CUtilites::DoubleToString(m_x) + ", " + CUtilites::DoubleToString(m_y) + ")";
 }
 
 double CPoint::GetDistanceToPoint(const CPoint &point) const

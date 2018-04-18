@@ -1,12 +1,11 @@
 #include "stdafx.h"
 #include "CCanvas.h"
-
+#include "Config.h"
 
 CCanvas::CCanvas(sf::RenderWindow & window)
 	: m_window(window)
 {
 }
-
 
 CCanvas::~CCanvas()
 {
@@ -26,7 +25,7 @@ void CCanvas::DrawLine(const CPoint & start, const CPoint & end, uint32_t lineCo
 			static_cast<float>(end.GetYCoord())),
 			sf::Color(sf::Uint32(lineColor)))
 	};
-	m_window.draw(vertices, 2, sf::Lines);
+	m_window.draw(vertices, OUTLINE_THICKNESS, sf::Lines);
 }
 
 void CCanvas::FillPolygon(const std::vector<CPoint>& points, uint32_t fillColor)
@@ -52,7 +51,7 @@ void CCanvas::DrawCircle(const CPoint & center, double radius, uint32_t lineColo
 		static_cast<float>(center.GetYCoord())));
 
 	circle.setFillColor(sf::Color::Transparent);
-	circle.setOutlineThickness(1);
+	circle.setOutlineThickness(OUTLINE_THICKNESS);
 	circle.setOutlineColor(sf::Color(sf::Uint32(lineColor)));
 	m_window.draw(circle);
 }

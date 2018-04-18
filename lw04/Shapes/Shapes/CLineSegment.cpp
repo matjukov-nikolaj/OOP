@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CLineSegment.h"
 #include "Config.h"
-#include "ConvertType.h"
+#include "CUtilites.h"
 
 
 CLineSegment::CLineSegment(const CPoint & start, const CPoint & end, const std::string & color)
@@ -33,7 +33,7 @@ CPoint CLineSegment::GetEndPoint() const
 
 void CLineSegment::Draw(ICanvas & canvas) const
 {
-	canvas.DrawLine(GetStartPoint(), GetEndPoint(), StringToUInt(GetOutlineColor()));
+	canvas.DrawLine(GetStartPoint(), GetEndPoint(), CUtilites::StringToUInt(GetOutlineColor()));
 }
 
 void CLineSegment::AppendProperties(std::ostream & strm) const
