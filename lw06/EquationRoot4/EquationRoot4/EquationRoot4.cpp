@@ -203,7 +203,7 @@ void PrintRoots(std::vector<double> const& roots, std::ostream &output)
 		output << "Equation : ";
 		for (size_t i = 0; i < roots.size(); i++)
 		{
-			std::cout << roots[i] << " ";
+			output << roots[i] << " ";
 		}
 		output << "\n";
 	}

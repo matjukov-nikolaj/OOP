@@ -6,8 +6,9 @@ namespace std {
 	{
 		for (size_t i = 0; i < result.size(); ++i)
 		{
-			return strm << result[i];
+			strm << result[i];
 		}
+		return strm;
 	}
 }
 
@@ -60,13 +61,25 @@ BOOST_AUTO_TEST_CASE(can_be_printed_root_in_output)
 	std::vector<double> expectedResult = { 1.51288 , -1.17872 };
 	BOOST_CHECK_CLOSE(result[0], expectedResult[0], 0.01);
 	BOOST_CHECK_CLOSE(result[1], expectedResult[1], 0.01);
-	//std::ostringstream strm;
-	//PrintRoots(result, strm);
-	//std::string resultString = strm.str();
-	//std::cout << resultString << "\n";
-	//std::string expectedString = "Equation : 1.51288 -1.17872 \n";
-	//std::cout << expectedString;
-	//BOOST_CHECK_EQUAL(resultString, expectedString);
+	std::ostringstream strm;
+	PrintRoots(result, strm);
+	std::string resultString = strm.str();
+	std::string expectedString = "Equation : 1.51288 -1.17872 \n";
+	BOOST_CHECK_EQUAL(resultString, expectedString);
+}
+
+BOOST_AUTO_TEST_CASE(get_three_real_root)
+{
+	std::vector<double> result = Solve4(2, 3, 1, 0, 0);
+	std::vector<double> expectedResult = { 0, -0.5, -1 };
+	BOOST_CHECK_EQUAL(result, expectedResult);
+}
+
+BOOST_AUTO_TEST_CASE(kek)
+{
+	std::vector<double> result = Solve4(2, 3, 1, 0, 0);
+	//std::vector<double> expectedResult = { 0, -0.5, -1 };
+	//BOOST_CHECK_EQUAL(result, expectedResult);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
