@@ -149,10 +149,6 @@ std::istream& operator>>(std::istream& input, CComplex& complex)
 	{
 		complex = CComplex(real, imaginary);
 	}
-	else
-	{
-		input.setstate(std::ios_base::failbit | input.rdstate());
-	}
 	return input;
 }
 
