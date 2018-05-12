@@ -200,7 +200,7 @@ void PrintRoots(std::vector<double> const& roots, std::ostream &output)
 {
 	if (!roots.empty())
 	{
-		output << "Equation : ";
+		output << "Equation roots : ";
 		for (size_t i = 0; i < roots.size(); i++)
 		{
 			output << roots[i] << " ";
