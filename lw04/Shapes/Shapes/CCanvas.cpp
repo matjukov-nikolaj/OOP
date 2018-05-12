@@ -25,7 +25,7 @@ void CCanvas::DrawLine(const CPoint & start, const CPoint & end, uint32_t lineCo
 			static_cast<float>(end.GetYCoord())),
 			sf::Color(sf::Uint32(lineColor)))
 	};
-	m_window.draw(vertices, OUTLINE_THICKNESS, sf::Lines);
+	m_window.draw(vertices, 2, sf::Lines);
 }
 
 void CCanvas::FillPolygon(const std::vector<CPoint>& points, uint32_t fillColor)
