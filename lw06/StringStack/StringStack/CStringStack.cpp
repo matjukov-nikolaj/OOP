@@ -1,31 +1,37 @@
 #include "stdafx.h"
 #include "CStringStack.h"
 
-CStringStack::Node::Node(const std::string & data, std::unique_ptr<Node>&& next)
-	:data(data)
+CStringStack::Node::Node(const std::string& data, std::unique_ptr<Node>&& next)
+	: data(data)
 	, next(std::move(next))
 {
 }
 
 CStringStack::CStringStack()
-	:m_top(nullptr)
+	: m_top(nullptr)
 {
 }
 
-void CStringStack::Push(const std::string & data)
+CStringStack::~CStringStack()
+{
+	Clear();
+}
+
+void CStringStack::Push(const std::string& data)
 {
 	auto newNode = std::make_unique<Node>(data, std::move(m_top));
 	m_top = move(newNode);
 }
 
-bool CStringStack::StackIsEmpty() const
+bool CStringStack::IsEmpty() const
 {
-	return m_top == nullptr;;
+	return m_top == nullptr;
+	;
 }
 
 std::string CStringStack::GetTopValue() const
 {
-	if (StackIsEmpty())
+	if (IsEmpty())
 	{
 		throw std::logic_error("Stack is empty.");
 	}
@@ -34,7 +40,7 @@ std::string CStringStack::GetTopValue() const
 
 void CStringStack::Pop()
 {
-	if (StackIsEmpty())
+	if (IsEmpty())
 	{
 		throw std::logic_error("Stack is empty.");
 	}
