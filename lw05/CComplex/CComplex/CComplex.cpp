@@ -15,6 +15,7 @@ double CComplex::Re() const
 double CComplex::Im() const
 {
 	return m_imaginary;
+
 }
 
 double CComplex::GetMagnitude() const
@@ -43,7 +44,6 @@ double CComplex::GetArgument() const
 CComplex const CComplex::operator+(const CComplex& complex) const
 {
 	return CComplex(m_real + complex.m_real, m_imaginary + complex.m_imaginary);
-	;
 }
 
 CComplex const operator+(double real, const CComplex& complex)
