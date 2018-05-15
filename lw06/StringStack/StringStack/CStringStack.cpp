@@ -48,7 +48,3 @@ void CStringStack::Clear()
 		Pop();
 	}
 }
-
-
-
-
