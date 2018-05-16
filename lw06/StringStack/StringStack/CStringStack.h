@@ -11,6 +11,7 @@ class CStringStack
 	};
 
 public:
+
 	CStringStack();
 	~CStringStack();
 	void Push(const std::string& data);
@@ -22,3 +23,4 @@ public:
 private:
 	std::unique_ptr<Node> m_top;
 };
+

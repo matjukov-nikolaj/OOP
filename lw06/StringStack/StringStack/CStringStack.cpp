@@ -20,13 +20,12 @@ CStringStack::~CStringStack()
 void CStringStack::Push(const std::string& data)
 {
 	auto newNode = std::make_unique<Node>(data, std::move(m_top));
-	m_top = move(newNode);
+	m_top = std::move(newNode);
 }
 
 bool CStringStack::IsEmpty() const
 {
 	return m_top == nullptr;
-	;
 }
 
 std::string CStringStack::GetTopValue() const
@@ -54,3 +53,4 @@ void CStringStack::Clear()
 		Pop();
 	}
 }
+
