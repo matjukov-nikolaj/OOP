@@ -13,11 +13,7 @@ public:
 	// возвращает аргумент комплексного числа
 	double GetArgument() const;
 	// возвращает комплексное число в обычном виде
-
-	CComplex const operator+(const CComplex& complex) const;
-	CComplex const operator-(const CComplex& complex) const;
-	CComplex const operator*(const CComplex& complex) const;
-	CComplex const operator/(const CComplex& complex) const;
+	
 	CComplex const operator+() const;
 	CComplex const operator-() const;
 	CComplex& operator+=(const CComplex& complex);
@@ -32,10 +28,10 @@ private:
 	double m_imaginary;
 };
 
-CComplex const operator+(double real, const CComplex& complex);
-CComplex const operator-(double real, const CComplex& complex);
-CComplex const operator*(double real, const CComplex& complex);
-CComplex const operator/(double real, const CComplex& complex);
+CComplex const operator+(const CComplex& complex1, const CComplex& complex2);
+CComplex const operator-(const CComplex& complex1, const CComplex& complex2);
+CComplex const operator*(const CComplex& complex1, const CComplex& complex2);
+CComplex const operator/(const CComplex& complex1, const CComplex& complex2);
 bool operator==(double real, const CComplex& complex);
 bool operator!=(double real, const CComplex& complex);
 std::istream& operator>>(std::istream& input, CComplex& complex);

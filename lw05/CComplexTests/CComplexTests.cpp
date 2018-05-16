@@ -43,7 +43,7 @@ BOOST_FIXTURE_TEST_SUITE(Complex, ComplexFixture)
 
 	BOOST_AUTO_TEST_CASE(can_get_argument_when_real_part_is_more_than_zero)
 	{
-		double expectedArgument = 1.0 / atan2(real, imaginary);
+		double expectedArgument = atan2(imaginary, real);
 		BOOST_CHECK_EQUAL(complex.GetArgument(), expectedArgument);
 	}
 
@@ -51,7 +51,7 @@ BOOST_FIXTURE_TEST_SUITE(Complex, ComplexFixture)
 	{
 		double real = -1.0;
 		CComplex complexNumber(real, imaginary);
-		double expectedArgument = M_PI + 1.0 / atan2(imaginary, real);
+		double expectedArgument = atan2(imaginary, real);
 		BOOST_CHECK_EQUAL(complexNumber.GetArgument(), expectedArgument);
 	}
 
@@ -60,7 +60,7 @@ BOOST_FIXTURE_TEST_SUITE(Complex, ComplexFixture)
 		double real = -1.0;
 		double imaginary = -1.0;
 		CComplex complexNumber(real, imaginary);
-		double expectedArgument = -M_PI + 1.0 / atan2(imaginary, real);
+		double expectedArgument = atan2(imaginary, real);
 		BOOST_CHECK_EQUAL(complexNumber.GetArgument(), expectedArgument);
 	}
 

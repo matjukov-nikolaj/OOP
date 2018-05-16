@@ -15,7 +15,6 @@ double CComplex::Re() const
 double CComplex::Im() const
 {
 	return m_imaginary;
-
 }
 
 double CComplex::GetMagnitude() const
@@ -29,61 +28,32 @@ double CComplex::GetArgument() const
 	{
 		throw std::domain_error("The argument is not defined.");
 	}
-	double argument = 1.0 / atan2(m_imaginary, m_real);
-	if (m_real < DBL_EPSILON && m_imaginary > DBL_EPSILON)
-	{
-		return M_PI + argument;
-	}
-	if (m_real < DBL_EPSILON && m_imaginary < DBL_EPSILON)
-	{
-		return -M_PI + argument;
-	}
-	return argument;
+	return atan2(m_imaginary, m_real);
 }
 
-CComplex const CComplex::operator+(const CComplex& complex) const
+CComplex const operator+(const CComplex& complex1, const CComplex& complex2)
 {
-	return CComplex(m_real + complex.m_real, m_imaginary + complex.m_imaginary);
+	return CComplex(complex1.Re() + complex2.Re(), complex1.Im() + complex2.Im());
 }
 
-CComplex const operator+(double real, const CComplex& complex)
+CComplex const operator-(const CComplex& complex1, const CComplex& complex2)
 {
-	return CComplex(real) + complex;
+	return CComplex(complex1.Re() - complex2.Re(), complex1.Im() - complex2.Im());
 }
 
-CComplex const CComplex::operator-(const CComplex& complex) const
+CComplex const operator*(const CComplex& complex1, const CComplex& complex2)
 {
-	return CComplex(m_real - complex.m_real, m_imaginary - complex.m_imaginary);
+	return CComplex(complex1.Re() * complex2.Re() - complex1.Im() * complex2.Im(),
+		complex1.Im() * complex2.Re() + complex1.Re() * complex2.Im());
 }
 
-CComplex const operator-(double real, const CComplex& complex)
+CComplex const operator/(const CComplex& complex1, const CComplex& complex2)
 {
-	return CComplex(real) - complex;
-}
-
-CComplex const CComplex::operator*(const CComplex& complex) const
-{
-	return CComplex(m_real * complex.m_real - m_imaginary * complex.m_imaginary,
-		m_imaginary * complex.m_real + m_real * complex.m_imaginary);
-}
-
-CComplex const operator*(double real, const CComplex& complex)
-{
-	return CComplex(real) * complex;
-}
-
-CComplex const CComplex::operator/(const CComplex& complex) const
-{
-	double denominator = (pow(complex.m_real, 2) + pow(complex.m_imaginary, 2));
+	double denominator = (pow(complex2.Re(), 2) + pow(complex2.Im(), 2));
 	return CComplex(
-		((m_real * complex.m_real + m_imaginary * complex.m_imaginary) / denominator)
-		, ((m_imaginary * complex.m_real - m_real * complex.m_imaginary) / denominator)
+		((complex1.Re() * complex2.Re() + complex1.Im() * complex2.Im()) / denominator)
+		, ((complex1.Im() * complex2.Re() - complex1.Re() * complex2.Im()) / denominator)
 	);
-}
-
-CComplex const operator/(double real, const CComplex& complex)
-{
-	return CComplex(real) / complex;
 }
 
 CComplex const CComplex::operator+() const
@@ -122,8 +92,8 @@ CComplex& CComplex::operator/=(const CComplex& complex)
 
 bool CComplex::operator==(const CComplex& complex) const
 {
-	return fabs(complex.m_imaginary - m_imaginary) < DBL_EPSILON 
-			&& fabs(complex.m_real - m_real) < DBL_EPSILON;
+	return fabs(complex.m_imaginary - m_imaginary) < DBL_EPSILON
+		&& fabs(complex.m_real - m_real) < DBL_EPSILON;
 }
 
 bool operator==(double real, const CComplex& complex)
