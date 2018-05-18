@@ -90,21 +90,21 @@ CComplex& CComplex::operator/=(const CComplex& complex)
 	return *this = *this / complex;
 }
 
-bool CComplex::operator==(const CComplex& complex) const
-{
-	return fabs(complex.m_imaginary - m_imaginary) < DBL_EPSILON
-		&& fabs(complex.m_real - m_real) < DBL_EPSILON;
-}
+//bool CComplex::operator==(const CComplex& complex) const
+//{
+//	return fabs(complex.m_imaginary - m_imaginary) < DBL_EPSILON
+//		&& fabs(complex.m_real - m_real) < DBL_EPSILON;
+//}
 
 bool operator==(double real, const CComplex& complex)
 {
 	return CComplex(real) == complex;
 }
 
-bool CComplex::operator!=(const CComplex& complex) const
-{
-	return !(complex == *this);
-}
+//bool CComplex::operator!=(const CComplex& complex) const
+//{
+//	return !(complex == *this);
+//}
 
 bool operator!=(double real, const CComplex& complex)
 {
