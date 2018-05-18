@@ -20,8 +20,6 @@ public:
 	CComplex& operator-=(const CComplex& complex);
 	CComplex& operator*=(const CComplex& complex);
 	CComplex& operator/=(const CComplex& complex);
-	bool operator==(const CComplex& complex) const;
-	bool operator!=(const CComplex& complex) const;
 
 private:
 	double m_real;
@@ -32,7 +30,7 @@ CComplex const operator+(const CComplex& complex1, const CComplex& complex2);
 CComplex const operator-(const CComplex& complex1, const CComplex& complex2);
 CComplex const operator*(const CComplex& complex1, const CComplex& complex2);
 CComplex const operator/(const CComplex& complex1, const CComplex& complex2);
-bool operator==(double real, const CComplex& complex);
-bool operator!=(double real, const CComplex& complex);
+bool operator==(const CComplex& complex1, const CComplex& complex2);
+bool operator!=(const CComplex& complex1, const CComplex& complex2);
 std::istream& operator>>(std::istream& input, CComplex& complex);
 std::ostream& operator<<(std::ostream& output, const CComplex& complex);
