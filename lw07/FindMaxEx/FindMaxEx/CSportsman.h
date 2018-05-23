@@ -10,8 +10,8 @@ public:
 	void PrintSportsmanInfo(const CSportsman & sportsman);
 	~CSportsman();
 private:
-	std::string m_name = "";
-	double m_height = 0.0;
-	double m_weight = 0.0;
+	std::string m_name;
+	double m_height;
+	double m_weight;
 };
 
