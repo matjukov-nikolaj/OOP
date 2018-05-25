@@ -3,9 +3,9 @@
 
 template < typename T, typename Less>
 bool FindMax(
-	std::vector<T> const& arr,
+	const std::vector<T>& arr,
 	T& maxValue,
-	Less const& less = std::less<T>)
+	const Less& less = std::less<T>)
 {
 	auto largest = arr.begin();
 	for (auto it = arr.begin(); it != arr.end(); ++it)

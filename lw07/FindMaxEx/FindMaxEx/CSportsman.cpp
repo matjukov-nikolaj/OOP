@@ -2,10 +2,6 @@
 #include "CSportsman.h"
 
 
-CSportsman::CSportsman()
-{
-}
-
 CSportsman::CSportsman(std::string const & name, double height, double weight)
 	: m_name(name)
 	, m_height(height)
@@ -31,9 +27,4 @@ double CSportsman::GetHeight() const
 void CSportsman::PrintSportsmanInfo(const CSportsman & sportsman)
 {
 	std::cout << sportsman.GetName() << " " << sportsman.GetWeight() << " " << sportsman.GetHeight() << "\n";
-}
-
-
-CSportsman::~CSportsman()
-{
 }
