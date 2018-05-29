@@ -5,9 +5,9 @@ class CStringStack
 
 	struct Node
 	{
-		Node(const std::string& data, const std::shared_ptr<Node>& next);
+		Node(const std::string& data, std::unique_ptr<Node>&& next);
 		std::string data;
-		std::shared_ptr<Node> next;
+		std::unique_ptr<Node> next;
 	};
 
 public:
@@ -24,5 +24,5 @@ public:
 	void Clear();
 
 private:
-	std::shared_ptr<Node> m_top;
+	std::unique_ptr<Node> m_top;
 };
