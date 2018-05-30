@@ -7,6 +7,11 @@ bool FindMax(
 	T& maxValue,
 	const Less& less = std::less<T>)
 {
+	if (arr.empty())
+	{
+		return false;
+	}
+
 	auto largest = arr.begin();
 	for (auto it = arr.begin(); it != arr.end(); ++it)
 	{
@@ -15,10 +20,7 @@ bool FindMax(
 			largest = it;
 		}
 	}
-	if (largest != arr.end())
-	{
-		maxValue = *largest;
-		return true;
-	}
-	return false;
+	
+	maxValue = *largest;
+	return true;
 }
