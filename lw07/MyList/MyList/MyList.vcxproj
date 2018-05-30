@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{51CB6DE8-0CD2-49BB-BD1A-D251C62F9B71}</ProjectGuid>
+    <ProjectGuid>{93A52CCD-2DD4-4D1B-9D60-A962EA7DAC91}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>MyList</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
@@ -147,9 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CMyIterator.h" />
     <ClInclude Include="CMyList.h" />
-    <ClInclude Include="Node.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

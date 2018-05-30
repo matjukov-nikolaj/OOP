@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{2A130010-3B7B-468A-BE90-DD3826325B96}</ProjectGuid>
+    <ProjectGuid>{076F60B6-F2E8-4AAF-A9DF-8548C8D7BCDC}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>MyListTests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
@@ -159,9 +159,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\MyList\MyList\CMyIterator.h" />
     <ClInclude Include="..\MyList\MyList\CMyList.h" />
-    <ClInclude Include="..\MyList\MyList\Node.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

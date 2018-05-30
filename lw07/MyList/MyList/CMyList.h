@@ -1,97 +1,81 @@
 #pragma once
-//#include "CMyIterator.h"
+#include "stdafx.h"
+#include <cassert>
+#include <string>
+#include <memory>
 
-template <typename T>
+template<typename T>
 class CMyList
 {
-
 	struct Node
 	{
-		Node(const T& data, Node* prev, std::unique_ptr<Node>&& next)
-			: data(data)
-			, prev(prev)
-			, next(std::move(next))
-		{
-		}
+		Node(const T & data, Node * prev, std::unique_ptr<Node> && next) : data(data), prev(prev), next(std::move(next)) {}
+
 		T data;
-		Node* prev;
+		Node *prev;
 		std::unique_ptr<Node> next;
 	};
 
-	template <typename U>
-	class CMyIterator : public std::iterator<std::bidirectional_iterator_tag, U>
+	template<typename U>
+	class CMyIterator : public std::iterator<std::random_access_iterator_tag, U>
 	{
-		template <class U>
-		friend class CMyList;
 	public:
-		CMyIterator() = default;
-
-		CMyIterator(Node* value)
+		CMyIterator(Node* value, bool isReverse)
 			: m_node(value)
+			, m_isReverse(isReverse)
 		{
 		}
 
-		bool operator==(const CMyIterator& rhs) const
+		friend class CMyList<T>;
+
+		bool operator!=(CMyIterator const& rhs) const
+		{
+			return m_node != rhs.m_node;
+		}
+		bool operator==(CMyIterator const& rhs) const
 		{
 			return m_node == rhs.m_node;
 		}
 
-		bool operator!=(const CMyIterator& rhs) const
-		{
-			return m_node != rhs.m_node;
-		}
-
-		U& operator*() const
+		U & operator*() const
 		{
 			return m_node->data;
 		}
 
 		CMyIterator& operator++()
 		{
-			if (m_node->next != nullptr)
-			{
-				m_node = m_node->next.get();
-			}
-			else
-			{
-				throw out_of_range("Can not increment CMyList iterator!");
-			}
+			m_node = (!m_isReverse) ? (m_node->next.get()) : (m_node->prev);
 			return *this;
 		}
 		CMyIterator& operator--()
 		{
-			if (m_node->prev != nullptr)
-			{
-				m_node = m_node->prev;
-			}
-			else
-			{
-				throw out_of_range("Can not decrement CMyList iterator.");
-			}
+			m_node = (!m_isReverse) ? (m_node->prev) : (m_node->next.get());
 			return *this;
 		}
 
 	private:
-		Node* operator->() const
+		Node * operator->()const
 		{
 			return m_node;
 		}
 
 		Node* m_node = nullptr;
+		bool m_isReverse = false;
 	};
+
 public:
 	CMyList() = default;
 
-	CMyList(const CMyList& listForCopy)
+	CMyList(CMyList & list)
 	{
-		CMyList tmpCopy;
-		for (auto node : listForCopy)
+		CMyList tmp;
+		for (const auto& element : list)
 		{
-			tmpCopy.PushBack(node);
+			tmp.PushBack(element);
 		}
-		std::swap(m_first, tmpCopy.m_first);
-		std::swap(m_last, tmpCopy.m_last);
-		m_size = tmpCopy.m_size;
+		std::swap(m_firstNode, tmp.m_firstNode);
+		std::swap(m_lastNode, tmp.m_lastNode);
+		m_size = tmp.m_size;
 	}
 
 	~CMyList()
@@ -99,63 +83,86 @@ public:
 		Clear();
 	}
 
-	size_t GetSize()
+	size_t GetSize() const
 	{
 		return m_size;
 	}
 
-	bool IsEmpty()
+	bool IsEmpty() const
 	{
-		return m_size == 0;
+		return m_size == 0u;
 	}
 
-	void PushBack(const T& data)
+	void PushBack(const T & data)
 	{
-		auto node = std::make_unique<Node>(data, m_last, nullptr);
-		Node* lastNode = node.get();
-		if (m_last)
+		std::unique_ptr<Node> node = std::make_unique<Node>(data, m_lastNode, nullptr);
+		Node *lastNode = node.get();
+		if (m_lastNode)
 		{
-			m_last->next = std::move(node);
+			m_lastNode->next = std::move(node);
 		}
 		else
 		{
-			m_first = std::move(node);
+			m_firstNode = std::move(node);
 		}
-		m_last = lastNode;
-		m_last->next = nullptr;
-		//++m_size;
+		m_lastNode = lastNode;
+		m_lastNode->next = nullptr;
+		++m_size;
 	}
-
-	void PushFront(const T& data)
+	void PushFront(const T & data)
 	{
-		std::unique_ptr<Node> node = std::make_unique<Node>(data, nullptr, std::move(m_first));
+		std::unique_ptr<Node> node = std::make_unique<Node>(data, nullptr, std::move(m_firstNode));
 		if (node->next)
 		{
 			node->next->prev = node.get();
 		}
 		else
 		{
-			m_last = node.get();
+			m_lastNode = node.get();
 		}
-		m_first = std::move(node);
-		m_first->prev = nullptr;
-		//m_size++;
+		m_firstNode = std::move(node);
+		m_firstNode->prev = nullptr;
+		m_size++;
 	}
 
-	T & GetElement(const size_t& index)
+	T & GetBackElement()
 	{
-		if (IsEmpty() && GetSize() <= index)
+		assert(m_lastNode);
+		return m_lastNode->data;
+	}
+
+	T & GetFrontElement()
+	{
+		assert(m_firstNode);
+		return m_firstNode->data;
+	}
+
+	const T & GetBackElement() const
+	{
+		assert(m_lastNode);
+		return m_lastNode->data;
+	}
+
+	const T & GetFrontElement() const
+	{
+		assert(m_firstNode);
+		return m_firstNode->data;
+	}
+
+	CMyList & operator=(CMyList& listForCopy)
+	{
+		if (&listForCopy != this)
 		{
-			std::out_of_range("Can not get element! Incorrect index.");
+			CMyList<T> tmp;
+			for (const auto &element : listForCopy)
+			{
+				tmp.PushBack(element);
+			}
+			std::swap(m_firstNode, tmp.m_firstNode);
+			std::swap(m_lastNode, tmp.m_lastNode);
+			m_size = tmp.m_size;
 		}
-		Node *node = m_first.get();
-		for (size_t i = 0; i <= index; ++i)
-		{
-			node = node->next.get();
-		}
-		T data = node->data;
-		node = nullptr;
-		return data;
+		return *this;
 	}
 
 	void Insert(const CMyIterator<T>& it, T data)
@@ -179,89 +186,110 @@ public:
 
 	void Erase(const CMyIterator<T>& it)
 	{
-		if (IsEmpty())
+		assert(GetSize() > 0);
+		if (m_size == 1)
 		{
-			throw std::out_of_range("Can not erase element if CMyList is empty!");
-		}
-		else if (m_size == 1)
-		{
-			Clear();
-			return;
-		}
-		else
-		{
+			m_firstNode = nullptr;
+			m_lastNode = nullptr;
 			m_size--;
+			return;
 		}
 
 		if (it == begin())
 		{
-			it->next->prev = nullptr;
-			m_first = move(it->next);
+			m_firstNode = std::move(m_firstNode->next);
+			m_firstNode->prev = nullptr;
 		}
-		else if (it == end())
+		else if (it.m_node == m_lastNode)
 		{
-			it->prev->next = nullptr;
-			m_last = std::move(it->prev);
+			m_lastNode = it->prev;
+			m_lastNode->next = nullptr;
 		}
 		else
 		{
 			it->next->prev = std::move(it->prev);
 			it->prev->next = std::move(it->next);
 		}
+		m_size--;
 	}
 
 	void Clear()
 	{
-		while (m_size != 0)
+		while (m_lastNode)
 		{
-			Erase(begin());
+			m_lastNode->next = nullptr;
+			m_lastNode = m_lastNode->prev;
 		}
-
-		m_last = nullptr;
+		m_firstNode = nullptr;
+		m_size = 0;
 	}
 
 	CMyIterator<T> begin()
 	{
-		return m_first.get();
+		return CMyIterator<T>(m_firstNode.get(), false);
 	}
 
 	CMyIterator<T> end()
 	{
-		return m_last->next.get();
+		if (IsEmpty())
+		{
+			return begin();
+		}
+		return CMyIterator<T>(m_lastNode->next.get(), false);
 	}
 
-	CMyIterator<const T> cbegin() const
+	const CMyIterator<const T> cbegin() const
 	{
-		return m_first.get();
+		return CMyIterator<const T>(m_firstNode.get(), false);
 	}
 
-	CMyIterator<const T> cend() const
+	const CMyIterator<const T> cend() const
 	{
-		return m_last->next.get();
+		if (IsEmpty())
+		{
+			return cbegin();
+		}
+		return CMyIterator<const T>(m_lastNode->next.get(), false);
 	}
 
-	std::reverse_iterator<CMyIterator<T>> rbegin()
+	CMyIterator<T>  rbegin()
 	{
-		return std::reverse_iterator<CMyIterator<T>>(end());
+		if (IsEmpty())
+		{
+			return CMyIterator<T>(m_firstNode.get(), true);
+		}
+		return CMyIterator<T>(m_lastNode, true);
 	}
 
-	std::reverse_iterator<CMyIterator<T>> rend()
+	CMyIterator<T>  rend()
 	{
-		return std::reverse_iterator<CMyIterator<T>>(begin());
+		if (IsEmpty())
+		{
+			return rbegin();
+		}
+		return CMyIterator<T>(m_firstNode->prev, true);
 	}
 
-	std::reverse_iterator<CMyIterator<const T>> crbegin() const
+	const CMyIterator<const T> crbegin() const
 	{
-		return std::reverse_iterator<CMyIterator<const T>>(end());
+		if (IsEmpty())
+		{
+			return CMyIterator<const T>(m_firstNode.get(), true);
+		}
+		return CMyIterator<const T>(m_lastNode, true);
 	}
 
-	std::reverse_iterator<CMyIterator<const T>> crend() const
+	const CMyIterator<const T> crend() const
 	{
-		return std::reverse_iterator<CMyIterator<const T>>(begin());
+		if (IsEmpty())
+		{
+			return crbegin();
+		}
+		return CMyIterator<const T>(m_firstNode->prev, true);
 	}
 
 private:
 	size_t m_size = 0;
-	std::unique_ptr<Node> m_first = nullptr;
-	Node* m_last = nullptr;
+	std::unique_ptr<Node> m_firstNode = nullptr;
+	Node * m_lastNode = nullptr;
 };
