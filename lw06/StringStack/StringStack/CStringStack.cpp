@@ -38,24 +38,22 @@ CStringStack& CStringStack::operator=(const CStringStack& stackForCopy)
 		return *this;
 	}
 
-	if (this == std::addressof(stackForCopy))
+	if (this != std::addressof(stackForCopy))
 	{
-		return *this;
-	}
-	std::unique_ptr<Node> node = std::make_unique<Node>(stackForCopy.m_top->data, std::move(stackForCopy.m_top));
-	//Node *node = stackForCopy.m_top.get();
-	std::unique_ptr<Node> element = std::make_unique<Node>(node->data, nullptr);
-	std::unique_ptr<Node> top = std::make_unique<Node>(element->data, std::move(element.get()));
+		Node* node = stackForCopy.m_top.get();
+		std::unique_ptr<Node> element = std::make_unique<Node>(node->data, nullptr);
+		std::unique_ptr<Node> top = std::make_unique<Node>(element->data, nullptr);
 
-	while (node)
-	{
-		element->next = std::make_unique<Node>(node->data, nullptr);
-		element = std::move(element->next);
-		node = std::move(node->next);
+		node = node->next.get();
+		while (node)
+		{
+			element->next = std::make_unique<Node>(node->data, nullptr);
+			element = std::move(element->next);
+			node = node->next.get();
+		}
+		Clear();
+		m_top.swap(top);
 	}
-	
-	Clear();
-	m_top = std::make_unique<Node>(top->data, nullptr);
 	return *this;
 }
 
