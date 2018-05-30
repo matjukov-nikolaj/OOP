@@ -129,19 +129,11 @@ CMyString::CMyString(std::unique_ptr<char[]>&& pChars, size_t length)
 CMyString operator+(const CMyString& string1, const CMyString& string2)
 {
 	std::unique_ptr<char[]> tmp = std::make_unique<char[]>(string1.m_length + string2.m_length + 1);
-	try
-	{
-		memcpy(tmp.get(), string1.m_pChars.get(), string1.m_length);
-		memcpy(tmp.get() + string1.m_length, string2.m_pChars.get(), string2.m_length + 1);
-		tmp[string1.m_length + string2.m_length] = '\0';
+	memcpy(tmp.get(), string1.m_pChars.get(), string1.m_length);
+	memcpy(tmp.get() + string1.m_length, string2.m_pChars.get(), string2.m_length + 1);
+	tmp[string1.m_length + string2.m_length] = '\0';
 
-		return CMyString(std::move(tmp), string1.m_length + string2.m_length);
-	}
-	catch (std::exception const&)
-	{
-		tmp.reset();
-		throw;
-	}
+	return CMyString(std::move(tmp), string1.m_length + string2.m_length);
 }
 
 bool operator==(const CMyString& string1, const CMyString& string2)
