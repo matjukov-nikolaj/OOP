@@ -40,6 +40,15 @@ BOOST_AUTO_TEST_SUITE(my_string)
 		BOOST_CHECK_EQUAL(str, "");
 	}
 
+	BOOST_AUTO_TEST_CASE(check_Get_strign_data_if_m_pChars_is_empty)
+	{
+		CMyString str("123");
+		str.Clear();
+		const char zeroLengthString[] = "";
+		const char* value = str.GetStringData();
+		BOOST_CHECK_EQUAL(value, zeroLengthString);
+	}
+
 	struct my_string_fixture
 	{
 		CMyString str;
@@ -105,6 +114,12 @@ BOOST_AUTO_TEST_SUITE(my_string)
 		{
 			str += str;
 			BOOST_CHECK_EQUAL(str, "123123");
+
+
+			CMyString x("1");
+			CMyString y("2");
+			CMyString z("3");
+			BOOST_CHECK_EQUAL(((x += y) += z), "123");
 		}
 
 		BOOST_AUTO_TEST_CASE(can_compare_string_to_equality)
@@ -152,6 +167,11 @@ BOOST_AUTO_TEST_SUITE(my_string)
 
 			line = "321";
 			BOOST_CHECK(str < line);
+
+			CMyString aligator("aligator");
+			CMyString zebra("zebra");
+
+			BOOST_CHECK(aligator < zebra);
 		}
 
 		BOOST_AUTO_TEST_CASE(has_less_equal_operator)
@@ -188,9 +208,10 @@ BOOST_AUTO_TEST_SUITE(my_string)
 		BOOST_AUTO_TEST_CASE(can_be_output_to_stream)
 		{
 			std::stringstream strm;
-			strm << str;
-			CMyString line(strm.str());
-			BOOST_CHECK_EQUAL(line, str);
+			CMyString line("123\0321");
+			strm << line;
+			CMyString string(strm.str());
+			BOOST_CHECK_EQUAL(line, string);
 		}
 
 	BOOST_AUTO_TEST_SUITE_END()

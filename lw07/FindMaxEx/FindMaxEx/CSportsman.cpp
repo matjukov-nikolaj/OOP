@@ -29,6 +29,10 @@ void CSportsman::PrintSportsmanInfo(const CSportsman & sportsman)
 	std::cout << sportsman.GetName() << " " << sportsman.GetWeight() << " " << sportsman.GetHeight() << "\n";
 }
 
+
+
+
+// BadSportsman
 CBadSportsman::CBadSportsman(std::string const & name, double height, double weight, bool throwExc)
 	:m_name(name)
 	, m_height(height)
