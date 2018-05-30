@@ -185,9 +185,9 @@ bool CMyString::operator<=(const CMyString& string) const
 
 std::istream& operator>>(std::istream& strm, CMyString& string)
 {
-	std::string tStr;
-	strm >> tStr;
-	string = tStr;
+	std::string str;
+	strm >> str;
+	string = str;
 
 	return strm;
 }
