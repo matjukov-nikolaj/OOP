@@ -10,7 +10,7 @@ struct PupilFixture
 	const std::string name = "Nick";
 	const std::string surname = "Matyukov";
 	const std::string patronymic = "Yurevich";
-	const std::string address = "Voinov 21 A";
+	const std::string address = "Voinov 21";
 	const std::string schoolName = "School 28";
 	const std::string schoolClass = "11A";
 	CPupil pupil;
@@ -59,7 +59,7 @@ struct TeacherFixture
 	const std::string name = "Alexey";
 	const std::string surname = "Malov";
 	const std::string patronymic = "Nikolaevich";
-	const std::string address = "Petrova 16 A";
+	const std::string address = "Petrova 3";
 	const std::string subjectName = "OOP";
 	CTeacher teacher;
 	TeacherFixture()
@@ -93,6 +93,61 @@ BOOST_FIXTURE_TEST_SUITE(teacher, TeacherFixture)
 	BOOST_AUTO_TEST_CASE(can_get_teacher_subject_name)
 	{
 		BOOST_CHECK_EQUAL(teacher.GetSubjectName(), subjectName);
+	}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+struct AdvancedStudentFixture
+{
+	const std::string name = "Nick";
+	const std::string surname = "Matyukov";
+	const std::string patronymic = "Yurevich";
+	const std::string address = "Voinov 21";
+	const std::string universityName = "PGTU";
+	const size_t studentTicketNumber = 1160501065;
+	const std::string dissertationThesis = "Mind-maps in our life";
+	CAdvancedStudent advancedStudent;
+	AdvancedStudentFixture()
+		: advancedStudent(name, surname, patronymic, address, universityName, studentTicketNumber, dissertationThesis)
+	{
+	}
+};
+
+BOOST_FIXTURE_TEST_SUITE(advanced_student, AdvancedStudentFixture)
+
+	BOOST_AUTO_TEST_CASE(can_get_advanced_student_name)
+	{
+		BOOST_CHECK_EQUAL(advancedStudent.GetName(), name);
+	}
+
+	BOOST_AUTO_TEST_CASE(can_get_advanced_student_surname)
+	{
+		BOOST_CHECK_EQUAL(advancedStudent.GetSurname(), surname);
+	}
+
+	BOOST_AUTO_TEST_CASE(can_get_advanced_student_patronymic)
+	{
+		BOOST_CHECK_EQUAL(advancedStudent.GetPatronymic(), patronymic);
+	}
+
+	BOOST_AUTO_TEST_CASE(can_get_advanced_student_address)
+	{
+		BOOST_CHECK_EQUAL(advancedStudent.GetAddress(), address);
+	}
+
+	BOOST_AUTO_TEST_CASE(can_get_advanced_student_university_name)
+	{
+		BOOST_CHECK_EQUAL(advancedStudent.GetUniversityName(), universityName);
+	}
+
+	BOOST_AUTO_TEST_CASE(can_get_advanced_student_ticket_number)
+	{
+		BOOST_CHECK_EQUAL(advancedStudent.GetStudentTicketNumber(), studentTicketNumber);
+	}
+
+	BOOST_AUTO_TEST_CASE(can_get_advanced_student_dissertation_thesis)
+	{
+		BOOST_CHECK_EQUAL(advancedStudent.GetDissertationThesis(), dissertationThesis);
 	}
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -139,9 +194,51 @@ BOOST_FIXTURE_TEST_SUITE(student, StudentFixture)
 		BOOST_CHECK_EQUAL(student.GetUniversityName(), universityName);
 	}
 
-	BOOST_AUTO_TEST_CASE(can_get_pupil_school_class)
+	BOOST_AUTO_TEST_CASE(can_get_student_ticket_number)
 	{
 		BOOST_CHECK_EQUAL(student.GetStudentTicketNumber(), studentTicketNumber);
 	}
 
 BOOST_AUTO_TEST_SUITE_END()
+
+struct WorkerFixture
+{
+	const std::string name = "Nick";
+	const std::string surname = "Matyukov";
+	const std::string patronymic = "Yurevich";
+	const std::string address = "Vinov 21";
+	const std::string specialty = "Taxi driver";
+	CWorker worker;
+	WorkerFixture()
+		: worker(name, surname, patronymic, address, specialty)
+	{}
+};
+
+BOOST_FIXTURE_TEST_SUITE(worker, WorkerFixture)
+
+BOOST_AUTO_TEST_CASE(can_get_worker_name)
+{
+	BOOST_CHECK_EQUAL(worker.GetName(), name);
+}
+
+BOOST_AUTO_TEST_CASE(can_get_worker_surname)
+{
+	BOOST_CHECK_EQUAL(worker.GetSurname(), surname);
+}
+
+BOOST_AUTO_TEST_CASE(can_get_worker_patronymic)
+{
+	BOOST_CHECK_EQUAL(worker.GetPatronymic(), patronymic);
+}
+
+BOOST_AUTO_TEST_CASE(can_get_worker_address)
+{
+	BOOST_CHECK_EQUAL(worker.GetAddress(), address);
+}
+
+BOOST_AUTO_TEST_CASE(can_get_worker_speciality)
+{
+	BOOST_CHECK_EQUAL(worker.GetSpecialty(), specialty);
+}
+BOOST_AUTO_TEST_SUITE_END()
+
