@@ -211,34 +211,34 @@ struct WorkerFixture
 	CWorker worker;
 	WorkerFixture()
 		: worker(name, surname, patronymic, address, specialty)
-	{}
+	{
+	}
 };
 
 BOOST_FIXTURE_TEST_SUITE(worker, WorkerFixture)
 
-BOOST_AUTO_TEST_CASE(can_get_worker_name)
-{
-	BOOST_CHECK_EQUAL(worker.GetName(), name);
-}
+	BOOST_AUTO_TEST_CASE(can_get_worker_name)
+	{
+		BOOST_CHECK_EQUAL(worker.GetName(), name);
+	}
 
-BOOST_AUTO_TEST_CASE(can_get_worker_surname)
-{
-	BOOST_CHECK_EQUAL(worker.GetSurname(), surname);
-}
+	BOOST_AUTO_TEST_CASE(can_get_worker_surname)
+	{
+		BOOST_CHECK_EQUAL(worker.GetSurname(), surname);
+	}
 
-BOOST_AUTO_TEST_CASE(can_get_worker_patronymic)
-{
-	BOOST_CHECK_EQUAL(worker.GetPatronymic(), patronymic);
-}
+	BOOST_AUTO_TEST_CASE(can_get_worker_patronymic)
+	{
+		BOOST_CHECK_EQUAL(worker.GetPatronymic(), patronymic);
+	}
 
-BOOST_AUTO_TEST_CASE(can_get_worker_address)
-{
-	BOOST_CHECK_EQUAL(worker.GetAddress(), address);
-}
+	BOOST_AUTO_TEST_CASE(can_get_worker_address)
+	{
+		BOOST_CHECK_EQUAL(worker.GetAddress(), address);
+	}
 
-BOOST_AUTO_TEST_CASE(can_get_worker_speciality)
-{
-	BOOST_CHECK_EQUAL(worker.GetSpecialty(), specialty);
-}
+	BOOST_AUTO_TEST_CASE(can_get_worker_speciality)
+	{
+		BOOST_CHECK_EQUAL(worker.GetSpecialty(), specialty);
+	}
 BOOST_AUTO_TEST_SUITE_END()
-
