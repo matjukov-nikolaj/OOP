@@ -12,7 +12,7 @@ public:
 	~CMyList();
 	CMyList(CMyList<T> && other);
 
-	CMyList<T> & operator = (CMyList<T> const & other);
+	CMyList<T> & operator = (const CMyList<T> & other);
 	CMyList<T> & operator = (CMyList<T> && other);
 
 	size_t GetSize() const;
@@ -20,7 +20,7 @@ public:
 
 	void PushBack(const T & data);
 	void PushFront(const T & data);
-	void Insert(const CMyIterator<T> & it, T const & data);
+	void Insert(const CMyIterator<T> & it, const T & data);
 
 
 	void Erase(const CMyIterator<T> & it);

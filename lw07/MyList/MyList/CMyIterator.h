@@ -3,12 +3,11 @@
 #include "CMyList.h"
 #include "Node.h"
 
-template <typename ValueType>
-class CMyIterator : public std::iterator<std::bidirectional_iterator_tag, ValueType>
+template <typename T>
+class CMyIterator : public std::iterator<std::bidirectional_iterator_tag, T>
 {
-
 public:
-	using NodeType = Node<std::decay_t<ValueType>>;
+	using NodeType = Node<std::decay_t<T>>;
 
 	CMyIterator() = default;
 
@@ -17,22 +16,22 @@ public:
 	{
 	}
 
-	ValueType& operator*() const
+	T& operator*() const
 	{
 		return (m_node->data).value();
 	}
 
-	bool operator==(CMyIterator<ValueType> const& other) const
+	bool operator==(const CMyIterator<T>& other) const
 	{
 		return m_node == other.m_node;
 	}
 
-	bool operator!=(CMyIterator<ValueType> const& other) const
+	bool operator!=(const CMyIterator<T>& other) const
 	{
 		return m_node != other.m_node;
 	}
 
-	CMyIterator<ValueType> & operator++()
+	CMyIterator<T> & operator++()
 	{
 		if (m_node->next != nullptr)
 		{
@@ -45,7 +44,7 @@ public:
 		return *this;
 	}
 
-	CMyIterator<ValueType> & operator--()
+	CMyIterator<T> & operator--()
 	{
 		if (m_node->prev != nullptr && m_node->prev->prev != nullptr)
 		{
@@ -63,18 +62,18 @@ public:
 		return (&m_node->data).value();
 	}
 
-	CMyIterator<ValueType> operator++(int)
+	CMyIterator<T> operator++(int)
 	{
-		CMyIterator<ValueType> tmp = *this;
+		CMyIterator<T> tmp = *this;
 		++*this;
 		return tmp;
 	}
 
-	CMyIterator<ValueType> operator--(int)
+	CMyIterator<T> operator--(int)
 	{
 		if (m_node->prev != nullptr && m_node->prev->prev != nullptr)
 		{
-			CMyIterator<ValueType> tmp = *this;
+			CMyIterator<T> tmp = *this;
 			--*this;
 			return tmp;
 		}
