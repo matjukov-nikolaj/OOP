@@ -21,7 +21,7 @@ bool IsEqualLists(const CMyList<T>& list, std::vector<T>& elements)
 }
 
 template <typename T>
-std::vector<T> GetVectorOfElementsFromTheList(CMyList<T>& list)
+std::vector<T> GetVectorOfElementsFromTheList(const CMyList<T>& list)
 {
 	std::vector<std::string> elements;
 	for (auto elem : list)
@@ -32,10 +32,29 @@ std::vector<T> GetVectorOfElementsFromTheList(CMyList<T>& list)
 }
 
 template <typename T>
-std::ostream& operator<<(std::ostream& strm, const CMyList<std::string>::CMyIterator<T> item)
+std::ostream& operator<<(std::ostream& strm, const CMyIterator<T> item)
 {
 	strm << *item << " ";
 	return strm;
+}
+
+template <typename T>
+std::ostream& operator<<(std::ostream& strm, const std::reverse_iterator<CMyIterator<T>> item)
+{
+	strm << *item << " ";
+	return strm;
+}
+
+template <typename T>
+bool ListAndVectorAreEqual(const CMyList<T>& list, const std::vector<T>& vec)
+{
+	int counter = 0;
+	for (auto it = list.begin(); it != list.end(); ++it)
+	{
+		BOOST_CHECK_EQUAL(*it, vec[counter]);
+		counter++;
+	}
+	return true;
 }
 
 BOOST_FIXTURE_TEST_SUITE(my_list, list_with_empty_string)
@@ -57,7 +76,7 @@ BOOST_FIXTURE_TEST_SUITE(my_list, list_with_empty_string)
 			size_t size = stringList.GetSize();
 			stringList.PushBack(data);
 			BOOST_CHECK_EQUAL(stringList.GetSize(), size + 1);
-			BOOST_CHECK_EQUAL(stringList.GetBackElement(), data);
+			BOOST_CHECK(ListAndVectorAreEqual(stringList, GetVectorOfElementsFromTheList(stringList)));
 		}
 
 		BOOST_AUTO_TEST_CASE(can_push_front_element)
@@ -65,7 +84,7 @@ BOOST_FIXTURE_TEST_SUITE(my_list, list_with_empty_string)
 			size_t size = stringList.GetSize();
 			stringList.PushFront(data);
 			BOOST_CHECK_EQUAL(stringList.GetSize(), size + 1);
-			BOOST_CHECK_EQUAL(stringList.GetFrontElement(), data);
+			BOOST_CHECK(ListAndVectorAreEqual(stringList, GetVectorOfElementsFromTheList(stringList)));
 		}
 
 		BOOST_AUTO_TEST_CASE(if_list_is_empty_end_iterator_return_begin)
@@ -99,36 +118,22 @@ BOOST_FIXTURE_TEST_SUITE(my_list, list_with_empty_string)
 			BOOST_CHECK_EQUAL(stringList.GetSize(), 0);
 		}
 
-		BOOST_AUTO_TEST_CASE(can_get_back_element)
-		{
-			std::string line = stringList.GetBackElement();
-			BOOST_CHECK_EQUAL(line, data);
-		}
-
-		BOOST_AUTO_TEST_CASE(can_get_front_element)
-		{
-			std::string line = stringList.GetFrontElement();
-			BOOST_CHECK_EQUAL(line, data);
-		}
-
 		BOOST_AUTO_TEST_CASE(have_iterator_at_begin_and_end)
 		{
-			BOOST_CHECK_EQUAL(addressof(*stringList.end()), nullptr);
-			BOOST_CHECK_EQUAL(addressof(*stringList.begin()), addressof(stringList.GetFrontElement()));
+			BOOST_CHECK(ListAndVectorAreEqual(stringList, GetVectorOfElementsFromTheList(stringList)));
 		}
 
 		BOOST_AUTO_TEST_CASE(have_const_iterator_at_begin_and_end)
 		{
-			BOOST_CHECK_EQUAL(addressof(*stringList.cend()), nullptr);
-			BOOST_CHECK_EQUAL(addressof(*stringList.cbegin()), addressof(stringList.GetFrontElement()));
+			const CMyList<std::string> list = stringList;
+			BOOST_CHECK(ListAndVectorAreEqual(list, GetVectorOfElementsFromTheList(list)));
 		}
 
 		BOOST_AUTO_TEST_CASE(can_make_copy)
 		{
 			CMyList<std::string> copiedList(stringList);
 			BOOST_CHECK_EQUAL(stringList.GetSize(), copiedList.GetSize());
-			BOOST_CHECK_EQUAL(stringList.GetBackElement(), copiedList.GetBackElement());
-			BOOST_CHECK_EQUAL(stringList.GetFrontElement(), copiedList.GetFrontElement());
+			BOOST_CHECK(ListAndVectorAreEqual(stringList, GetVectorOfElementsFromTheList(copiedList)));
 
 			std::vector<std::string> list = GetVectorOfElementsFromTheList(stringList);
 			BOOST_CHECK(IsEqualLists(stringList, list));
@@ -136,22 +141,19 @@ BOOST_FIXTURE_TEST_SUITE(my_list, list_with_empty_string)
 
 		BOOST_AUTO_TEST_CASE(there_is_a_copying_assignment_operator)
 		{
-			const CMyList<std::string> lol(stringList);
 			CMyList<std::string> copiedList;
 			copiedList = stringList;
 			BOOST_CHECK_EQUAL(stringList.GetSize(), copiedList.GetSize());
-			BOOST_CHECK_EQUAL(stringList.GetBackElement(), copiedList.GetBackElement());
-			BOOST_CHECK_EQUAL(stringList.GetFrontElement(), copiedList.GetFrontElement());
+			BOOST_CHECK(ListAndVectorAreEqual(stringList, GetVectorOfElementsFromTheList(copiedList)));
 
 			std::vector<std::string> list = GetVectorOfElementsFromTheList(copiedList);
 			BOOST_CHECK(IsEqualLists(stringList, list));
 		}
-		
+
 		BOOST_AUTO_TEST_CASE(can_make_const_copy)
 		{
 			const CMyList<std::string> copiedList(stringList);
-			BOOST_CHECK_EQUAL(stringList.GetBackElement(), copiedList.GetBackElement());
-			BOOST_CHECK_EQUAL(stringList.GetFrontElement(), copiedList.GetFrontElement());
+			BOOST_CHECK(ListAndVectorAreEqual(stringList, GetVectorOfElementsFromTheList(copiedList)));
 
 			std::vector<std::string> list = GetVectorOfElementsFromTheList(stringList);
 			BOOST_CHECK(IsEqualLists(stringList, list));
@@ -176,12 +178,6 @@ BOOST_FIXTURE_TEST_SUITE(my_list, list_with_empty_string)
 			stringList.Insert(it, newListElement);
 			oldList.insert(++oldList.begin(), newListElement);
 			BOOST_CHECK_EQUAL(stringList.GetSize(), oldSize + 3);
-			BOOST_CHECK(IsEqualLists(stringList, oldList));
-
-			it = --stringList.begin();
-			stringList.Insert(it, newListElement);
-			oldList.insert(--oldList.end(), newListElement);
-			BOOST_CHECK_EQUAL(stringList.GetSize(), oldSize + 4);
 			BOOST_CHECK(IsEqualLists(stringList, oldList));
 		}
 
@@ -222,6 +218,7 @@ BOOST_FIXTURE_TEST_SUITE(my_list, list_with_empty_string)
 
 	struct string_list_with_different_elements : list_with_empty_string
 	{
+		std::vector<std::string> vec = { "1", "2", "3" };
 		string_list_with_different_elements()
 		{
 			stringList.PushBack("1");
@@ -232,29 +229,40 @@ BOOST_FIXTURE_TEST_SUITE(my_list, list_with_empty_string)
 
 	BOOST_FIXTURE_TEST_SUITE(check_reverse_iterators, string_list_with_different_elements)
 
-		BOOST_AUTO_TEST_CASE(can_insert_an_element_into_the_position_set_by_an_reverse_iterator)
+		BOOST_AUTO_TEST_CASE(have_reverse_iterator)
 		{
-			std::vector<std::string> oldList = GetVectorOfElementsFromTheList(stringList);
-			size_t oldSize = stringList.GetSize();
-			stringList.Insert(stringList.rbegin(), data);
-			oldList.insert(--oldList.end(), data);
-			BOOST_CHECK_EQUAL(stringList.GetSize(), oldSize + 1);
-			BOOST_CHECK(IsEqualLists(stringList, oldList));
+			size_t counter = stringList.GetSize() - 1;
+			for (auto it = stringList.rbegin(); it != stringList.rend(); ++it)
+			{
+				BOOST_CHECK_EQUAL(*it, vec[counter]);
+				counter--;
+			}
+		}
+
+		BOOST_AUTO_TEST_CASE(have_const_reverse_iterator)
+		{
+			const CMyList<std::string> list(stringList);
+			size_t counter = list.GetSize() - 1;
+			for (auto it = list.rbegin(); it != list.rend(); ++it)
+			{
+				BOOST_CHECK_EQUAL(*it, vec[counter]);
+				counter--;
+			}
 		}
 
 	BOOST_AUTO_TEST_SUITE_END()
 
-	BOOST_FIXTURE_TEST_SUITE(check_iterators_for_empty_list, list_with_empty_string)
+	BOOST_FIXTURE_TEST_SUITE(throw_exceptions, string_list_with_different_elements)
 
-		BOOST_AUTO_TEST_CASE(when_the_list_is_empty_begin_and_end_r_equal)
+		BOOST_AUTO_TEST_CASE(throw_exceptions_if_iterator_not_incrementable)
 		{
-			BOOST_CHECK_EQUAL(stringList.begin(), stringList.end());
-			const CMyList<std::string> emptyList;
-			BOOST_CHECK_EQUAL(emptyList.cbegin(), emptyList.cend());
-			BOOST_CHECK_EQUAL(stringList.rbegin(), stringList.rend());
-			BOOST_CHECK_EQUAL(emptyList.crbegin(), emptyList.crend());
+			BOOST_CHECK_THROW(stringList.end()++, std::out_of_range);
+		}
+
+		BOOST_AUTO_TEST_CASE(throw_exceptions_if_iterator_not_decrementable)
+		{
+			BOOST_CHECK_THROW(stringList.begin()--, std::out_of_range);
 		}
 
 	BOOST_AUTO_TEST_SUITE_END()
-
 BOOST_AUTO_TEST_SUITE_END()
